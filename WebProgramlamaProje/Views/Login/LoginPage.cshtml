@@ -1,0 +1,20 @@
+﻿@model WebProgramlamaProje.Models.User
+
+<h2>Kullanıcı Girişi</h2>
+
+<form asp-action="LoginPage" method="post">
+    <div>
+        <label>E-posta:</label>
+        <input asp-for="Email" type="email" />
+    </div>
+    <div>
+        <label>Şifre:</label>
+        <input asp-for="Password" type="password" />
+    </div>
+    <button type="submit">Giriş Yap</button>
+</form>
+
+@if (TempData["Error"] != null)
+{
+    <p style="color:red;">@TempData["Error"]</p>
+}

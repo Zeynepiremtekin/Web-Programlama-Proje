@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebProgramlamaProje
@@ -10,6 +11,13 @@ namespace WebProgramlamaProje
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Login/LoginPage"; // Giriþ sayfasý yolu
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Oturum süresi
+                });
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -25,11 +33,12 @@ namespace WebProgramlamaProje
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
