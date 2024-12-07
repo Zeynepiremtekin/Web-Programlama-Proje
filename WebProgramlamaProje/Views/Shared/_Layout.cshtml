@@ -7,28 +7,166 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebProgramlamaProje.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <style>
+
+
+
+
+
+        /* Navbar styling */
+        .navbar {
+            background: linear-gradient(90deg, black, #3a3a3a); /* Zarif koyu degrade */
+            padding: 1rem;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); /* Daha yoğun gölge */
+        }
+
+        /* Logo styling */
+        .navbar-brand {
+            font-family: cursive; /* Zarif yazı tipi */
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e8b44b; /* Altın rengi */
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+        }
+
+            .navbar-brand i {
+                margin-right: 10px;
+                font-size: 2.4rem;
+                color: #d4a538;
+            }
+
+            .navbar-brand:hover {
+                color: #ffffff;
+                text-decoration: none;
+            }
+
+        /* Navbar links */
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+            font-family: cursive;
+            letter-spacing: 0.5px;
+            transition: color 0.3s, transform 0.3s ease, text-shadow 0.3s;
+            position: relative;
+        }
+
+            /* Hover efekt: Renk değişimi ve altın parlaması */
+            .navbar-nav .nav-link:hover {
+                color: #e8b44b;
+                text-shadow: 0 0 10px #e8b44b, 0 0 20px #e8b44b;
+            }
+
+            .navbar-nav .nav-link.active {
+                color: #e8b44b; /* Altın rengi */
+                font-weight: bold; /* Kalın yazı */
+                transition: all 0.3s ease-in-out; /* Smooth geçiş */
+                text-shadow: 0 0 6px rgba(232, 180, 75, 0.6); /* Hafif altın renkli gölge */
+                position: relative;
+            }
+
+                /* Alt çizgi efekti */
+                .navbar-nav .nav-link.active::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -5px; /* Linkin hemen altı */
+                    left: 0;
+                    width: 100%; /* Tüm genişliği kaplar */
+                    height: 2px;
+                    background: linear-gradient(90deg, #e8b44b, #d4a538); /* Altın degrade çizgi */
+                    transition: all 0.3s ease-in-out; /* Smooth animasyon */
+                }
+
+
+        /* Search button styling */
+        .search-btn {
+            background-color: #e8b44b;
+            border: none;
+            color: #1a1a1a;
+            font-size: 1.2rem;
+            transition: all 0.3s ease-in-out;
+            border-radius: 50%;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .search-btn:hover {
+                background-color: #d4a538;
+                transform: scale(1.2);
+            }
+
+        /* Navbar container */
+        .navbar-container {
+            font-family: 'Playfair Display', serif;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+
+    </style>
+
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebProgramlamaProje</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="navbar-container container-fluid">
+                <!-- Logo with icon -->
+                <a>
+                    <i class="bi bi-scissors navbar-brand ">HAIRDRESSER</i>
+
+                </a>
+
+                <!-- Toggler for mobile view -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" href="http://localhost:5162/Login/LoginPage">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" href="http://localhost:5162/User/CreateUser">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
                         </li>
                     </ul>
+
+                    <!-- Search bar -->
+                    <form class="d-flex ms-3">
+                        <button class="btn search-btn" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </nav>
+
+        <div class="container mt-5">
+            <h1>Welcome to Luxury Hair Studio</h1>
+            <p>Experience the art of exquisite hair design and care.</p>
+        </div>
+
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -41,9 +179,32 @@
             &copy; 2024 - WebProgramlamaProje - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // Şu anki sayfanın URL'sini al
+        const currentURL = window.location.href;
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        navLinks.forEach(link => {
+            // Eğer menüdeki link, mevcut URL ile eşleşirse
+            if (link.href === currentURL) {
+                link.classList.add('active'); // 'active' sınıfını ekle
+            }
+        });
+
+
+    </script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
+
+
 </body>
+
 </html>
