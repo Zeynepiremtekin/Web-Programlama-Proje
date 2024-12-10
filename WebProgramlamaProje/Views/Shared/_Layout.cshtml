@@ -104,7 +104,7 @@
 
         /* Navbar container */
         .navbar-container {
-            font-family: 'Playfair Display', serif;
+            font-family: cursive;          
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -134,7 +134,50 @@
             }
 
 
-     
+        footer {
+            background: linear-gradient(90deg, black, #3a3a3a); /* Zarif koyu degrade */
+            padding: 1rem;
+            font-family: cursive;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); /* Daha yoğun gölge */
+            padding: 2rem 0; /* Üst ve alt boşluk */
+            font-size: 0.9rem; /* Daha kompakt metin */
+        }
+
+            footer h5 {
+                font-size: 1.2rem; /* Başlık boyutu */
+                font-weight: bold;
+                margin-bottom: 1rem;
+            }
+
+            footer ul {
+                list-style: none; /* Liste işaretlerini kaldır */
+                padding: 0;
+            }
+
+                footer ul li {
+                    margin-bottom: 0.5rem; /* Liste öğeleri arasında boşluk */
+                }
+
+            footer a {
+                color: #fff;
+                text-decoration: none; /* Link alt çizgilerini kaldır */
+            }
+
+                footer a:hover {
+                    color: #e8b44b; /* Hover durumunda altın rengi */
+                }
+
+            footer .bi {
+                transition: color 0.3s ease-in-out; /* İkon hover geçişi */
+            }
+
+                footer .bi:hover {
+                    color: #e8b44b; /* Sosyal medya ikonlarının hover rengi */
+                }
+
+            footer p {
+                margin: 0;
+            }
 
 
 
@@ -205,11 +248,69 @@
     </div>
 
 
-    <footer class="border-top footer text-muted">
+    <footer style="background-color: #333; color: #fff; padding: 2rem 0;">
         <div class="container">
-            &copy; 2024 - WebProgramlamaProje - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row text-center text-md-start">
+                <!-- Adres -->
+                <div class="col-md-4">
+                    <h5>Address</h5>
+                    <ul class="list-unstyled" style="font-size: 0.9rem; padding-left: 0;">
+                        <li>
+                            Sakarya University <br> Faculty of Computer and Information Sciences
+                        </li>
+                    </ul>
+                    
+                </div>
+
+                <!-- Telefon -->
+
+                <div class="col-md-4">
+                    <h5>Telephone</h5>
+                    <ul class="list-unstyled" style="font-size: 0.9rem; padding-left: 0;">
+                        <li><i class="bi bi-telephone"></i> +90 555 444 33 22</li>
+                    </ul>
+                </div>
+
+                <!-- İletişim -->
+                <div class="col-md-4">
+                    <h5>E-mail</h5>
+                    <ul class="list-unstyled" style="font-size: 0.9rem; padding-left: 0;">
+                       <li><i class="bi bi-envelope"></i> info@ogr.sakarya.edu.tr</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <!-- Sosyal Medya İkonları -->
+            <div class="row mt-4 text-center">
+
+                <div class="col-12">
+                    <a href="#" class="me-3" style="color: #fff; text-decoration: none; font-size: 1.5rem;">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" class="me-3" style="color: #fff; text-decoration: none; font-size: 1.5rem;">
+                        <i class="bi bi-twitter"></i>
+                    </a>
+                    <a href="#" class="me-3" style="color: #fff; text-decoration: none; font-size: 1.5rem;">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" style="color: #fff; text-decoration: none; font-size: 1.5rem;">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Telif Hakkı -->
+            <div class="row mt-4 text-center">
+                <div class="col-12">
+                    <p style="font-size: 0.8rem;">
+                        &copy; 2024 - WebProgrammingProject - <a href="#" style="color: #e8b44b; text-decoration: none;">Privacy</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
+
 
 
 
