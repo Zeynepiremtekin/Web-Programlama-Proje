@@ -27,6 +27,14 @@ namespace WebProgramlamaProje.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateUser(User receivedUser)
         {
+            // Aynı e-posta ile başka bir kullanıcı olup olmadığını kontrol et
+            var existingUser = _dbContext.Users.FirstOrDefault(u => u.Email == receivedUser.Email);
+            if (existingUser != null)
+            {
+                TempData["Error"] = "Bu e-posta adresi zaten kayıtlı.";
+                return View(receivedUser); // Kullanıcıyı form ekranına geri döndür
+            }
+
             // Yeni kullanıcının varsayılan rolünü ve diğer özelliklerini ayarla
             receivedUser.Role = "User";
             receivedUser.UserId = 0; // Veri tabanı otomatik artırırsa manuel değer atamaya gerek yok
