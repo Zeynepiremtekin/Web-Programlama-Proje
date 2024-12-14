@@ -11,24 +11,26 @@
 
 
     <style>
-
-
-
-
-
-        /* Navbar styling */
+     
+        /* navbar genel tasarımı */
         .navbar {
-            background: linear-gradient(90deg, black, #3a3a3a); /* Zarif koyu degrade */
+            background: linear-gradient(90deg, black, #3a3a3a); 
             padding: 1rem;
-            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); /* Daha yoğun gölge */
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            z-index: 1000; 
+
         }
 
-        /* Logo styling */
+        /* logo tasarımı */
         .navbar-brand {
-            font-family: cursive; /* Zarif yazı tipi */
+            font-family: cursive;
             font-size: 2rem;
             font-weight: bold;
-            color: #e8b44b; /* Altın rengi */
+            color: #e8b44b; 
             display: flex;
             align-items: center;
             text-transform: uppercase;
@@ -45,7 +47,7 @@
                 text-decoration: none;
             }
 
-        /* Navbar links */
+        /* navbar link tasarımı */
         .navbar-nav .nav-link {
             color: #ffffff;
             margin-right: 1.5rem;
@@ -56,34 +58,33 @@
             position: relative;
         }
 
-            /* Hover efekt: Renk değişimi ve altın parlaması */
             .navbar-nav .nav-link:hover {
                 color: #e8b44b;
                 text-shadow: 0 0 10px #e8b44b, 0 0 20px #e8b44b;
             }
 
             .navbar-nav .nav-link.active {
-                color: #e8b44b; /* Altın rengi */
-                font-weight: bold; /* Kalın yazı */
-                transition: all 0.3s ease-in-out; /* Smooth geçiş */
-                text-shadow: 0 0 6px rgba(232, 180, 75, 0.6); /* Hafif altın renkli gölge */
+                color: #e8b44b;
+                font-weight: bold; 
+                transition: all 0.3s ease-in-out; 
+                text-shadow: 0 0 6px rgba(232, 180, 75, 0.6);
                 position: relative;
             }
 
-                /* Alt çizgi efekti */
+                
                 .navbar-nav .nav-link.active::after {
                     content: '';
                     position: absolute;
-                    bottom: -5px; /* Linkin hemen altı */
+                    bottom: -5px; 
                     left: 0;
-                    width: 100%; /* Tüm genişliği kaplar */
+                    width: 100%; 
                     height: 2px;
-                    background: linear-gradient(90deg, #e8b44b, #d4a538); /* Altın degrade çizgi */
-                    transition: all 0.3s ease-in-out; /* Smooth animasyon */
+                    background: linear-gradient(90deg, #e8b44b, #d4a538); 
+                    transition: all 0.3s ease-in-out; 
                 }
 
 
-        /* Search button styling */
+        /* arama butonu tasarımı */
         .search-btn {
             background-color: #e8b44b;
             border: none;
@@ -102,7 +103,7 @@
                 transform: scale(1.2);
             }
 
-        /* Navbar container */
+        /* navbar içerik tasarımı */
         .navbar-container {
             font-family: cursive;          
             max-width: 1400px;
@@ -110,10 +111,9 @@
         }
 
         .custom-toggler {
-            border: none; /* Kenarlık kaldırıldı */
+            border: none; 
             background-color: #d4a538;
             padding: 10px 15px;
-            /* Butona biraz iç boşluk ekleme */
             border-radius: 50%;
 
         }
@@ -130,85 +130,80 @@
             .custom-toggler:hover  {
                 transform: scale(1.2);
                 transition: all 0.3s ease-in-out;
-                /* Hover efekti daha parlak altın */
             }
 
-
+        /* footer tasarımı */
         footer {
-            background: linear-gradient(90deg, black, #3a3a3a); /* Zarif koyu degrade */
+            background: linear-gradient(90deg, black, #3a3a3a); 
             padding: 1rem;
             font-family: cursive;
-            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); /* Daha yoğun gölge */
-            padding: 2rem 0; /* Üst ve alt boşluk */
-            font-size: 0.9rem; /* Daha kompakt metin */
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); 
+            padding: 2rem 0; 
+            font-size: 0.9rem; 
         }
 
             footer h5 {
-                font-size: 1.2rem; /* Başlık boyutu */
+                font-size: 1.2rem; 
                 font-weight: bold;
                 margin-bottom: 1rem;
             }
 
             footer ul {
-                list-style: none; /* Liste işaretlerini kaldır */
+                list-style: none; 
                 padding: 0;
             }
 
                 footer ul li {
-                    margin-bottom: 0.5rem; /* Liste öğeleri arasında boşluk */
+                    margin-bottom: 0.5rem; 
                 }
 
             footer a {
                 color: #fff;
-                text-decoration: none; /* Link alt çizgilerini kaldır */
+                text-decoration: none; 
             }
 
                 footer a:hover {
-                    color: #e8b44b; /* Hover durumunda altın rengi */
+                    color: #e8b44b; 
                 }
 
+            /* Sosyal medya ikon tasarımı */
             footer .bi {
-                transition: color 0.3s ease-in-out; /* İkon hover geçişi */
+                transition: color 0.3s ease-in-out; 
             }
 
                 footer .bi:hover {
-                    color: #e8b44b; /* Sosyal medya ikonlarının hover rengi */
+                    color: #e8b44b; 
                 }
 
             footer p {
                 margin: 0;
             }
 
-
-
-
-
     </style>
-
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="navbar-container container-fluid">
-                <!-- Logo with icon -->
+                <!-- firma logosu -->
                 <a class="nav-link" href="http://localhost:5162/Home/Index">
                     <i class="bi bi-scissors navbar-brand ">HAIRDRESSER</i>
 
                 </a>
 
-                <!-- Toggler for mobile view -->
+                <!-- toggler görünümü -->
                 <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Navbar links -->
+                <!-- Navbar linkleri -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About Us</a>
+                            <a class="nav-link" href="https://localhost:7042/Home/Index">About Us</a>
                         </li> 
                         <li class="nav-item">
                             <a class="nav-link" href="#">Services</a>
@@ -224,7 +219,7 @@
                         </li>
                     </ul>
 
-                    <!-- Search bar -->
+                    <!-- arama barı -->
                     <form class="d-flex ms-3">
                         <button class="btn search-btn" type="submit">
                             <i class="bi bi-search"></i>
@@ -234,11 +229,7 @@
             </div>
         </nav>
 
-        <div class="container mt-5">
-            <h1>Welcome to Luxury Hair Studio</h1>
-            <p>Experience the art of exquisite hair design and care.</p>
-        </div>
-
+        
 
     </header>
     <div class="container">

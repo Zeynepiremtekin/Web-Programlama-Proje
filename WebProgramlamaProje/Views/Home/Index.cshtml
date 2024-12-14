@@ -1,8 +1,475 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebProgramlamaProje</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebProgramlamaProje.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+    <style>
+
+        .navbar {
+            background: linear-gradient(90deg, black, #3a3a3a);
+            padding: 1rem;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+            position: fixed; /* Navbar'ı sabitler */
+            top: 0; /* Sayfanın üst kısmına yerleştirir */
+            left: 0; /* Sol tarafa hizalar */
+            width: 100%; /* Genişlik tamamen sayfa boyutuna uyar */
+            z-index: 1000; /* Navbar'ı üstte tutar */
+        }
+
+        /* logo tasarımı */
+        .navbar-brand {
+            font-family: cursive;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e8b44b;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+        }
+
+            .navbar-brand i {
+                margin-right: 10px;
+                font-size: 2.4rem;
+                color: #d4a538;
+            }
+
+            .navbar-brand:hover {
+                color: #ffffff;
+                text-decoration: none;
+            }
+
+        /* navbar link tasarımı */
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+            font-family: cursive;
+            letter-spacing: 0.5px;
+            transition: color 0.3s, transform 0.3s ease, text-shadow 0.3s;
+            position: relative;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #e8b44b;
+                text-shadow: 0 0 10px #e8b44b, 0 0 20px #e8b44b;
+            }
+
+            .navbar-nav .nav-link.active {
+                color: #e8b44b;
+                font-weight: bold;
+                transition: all 0.3s ease-in-out;
+                text-shadow: 0 0 6px rgba(232, 180, 75, 0.6);
+                position: relative;
+            }
+
+
+                .navbar-nav .nav-link.active::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -5px;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    background: linear-gradient(90deg, #e8b44b, #d4a538);
+                    transition: all 0.3s ease-in-out;
+                }
+
+
+        /* arama butonu tasarımı */
+        .search-btn {
+            background-color: #e8b44b;
+            border: none;
+            color: #1a1a1a;
+            font-size: 1.2rem;
+            transition: all 0.3s ease-in-out;
+            border-radius: 50%;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .search-btn:hover {
+                background-color: #d4a538;
+                transform: scale(1.2);
+            }
+
+        /* navbar içerik tasarımı */
+        .navbar-container {
+            font-family: cursive;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .custom-toggler {
+            border: none;
+            background-color: #d4a538;
+            padding: 10px 15px;
+            border-radius: 50%;
+        }
+
+            .custom-toggler span {
+                display: block;
+                width: 20px;
+                height: 4px;
+                margin: 4px auto;
+                background-color: #1a1a1a;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .custom-toggler:hover {
+                transform: scale(1.2);
+                transition: all 0.3s ease-in-out;
+            }
+
+        /* footer tasarımı */
+        footer {
+            background: linear-gradient(90deg, black, #3a3a3a);
+            padding: 1rem;
+            font-family: cursive;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+
+            footer h5 {
+                font-size: 1.2rem;
+                font-weight: bold;
+                margin-bottom: 1rem;
+            }
+
+            footer ul {
+                list-style: none;
+                padding: 0;
+            }
+
+                footer ul li {
+                    margin-bottom: 0.5rem;
+                }
+
+            footer a {
+                color: #fff;
+                text-decoration: none;
+            }
+
+                footer a:hover {
+                    color: #e8b44b;
+                }
+
+            /* Sosyal medya ikon tasarımı */
+            footer .bi {
+                transition: color 0.3s ease-in-out;
+            }
+
+                footer .bi:hover {
+                    color: #e8b44b;
+                }
+
+            footer p {
+                margin: 0;
+            }
+      
+        .carousel {
+            padding-top:110px;
+            border-radius: 40px; 
+            overflow: hidden;
+            margin: 10px auto; 
+            width: 100%; 
+        }
+
+        /* Slider Görselleri İçin */
+        .carousel-inner img {
+            border-radius: 30px; 
+            object-fit: cover; 
+            height:700px;
+        }
+
+
+        /* Slider üzerindeki buton */
+        .carousel-caption {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+            .carousel-caption .btn {
+                background: black;
+                color: #e8b44b;
+                border: none;
+                padding: 10px 20px;
+                font-size: 1.2rem;
+                font-weight: bold;
+                font-family: cursive;
+                border-radius: 50px;
+                outline: none;
+                box-shadow: none;
+                transition: background 0.3s ease-in-out;
+            }
+
+                .carousel-caption .btn:hover {
+                    color: white;
+                    font-weight: bold;
+                    transition: all 0.3s ease-in-out;
+                    text-shadow: 0 0 6px rgba(232, 180, 75, 0.6);
+                    position: relative;
+                    background-color: #e8b44b;
+                    outline: none;
+                    box-shadow: none;
+                }
+
+        .carousel-indicators [data-bs-target] {
+            background-color: #e8b44b;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .carousel-indicators .active {
+            background-color: #d4a538;
+            width: 15px;
+            height: 15px;
+            animation: pulse 1s infinite;
+        }
+
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            filter: invert(1);
+        }
+
+
+
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Card Style */
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+            .service-card:hover {
+                transform: translateY(-10px);
+            }
+
+        .service-content {
+            padding: 20px;
+            text-align: center;
+            font-family: cursive;
+        }
+
+            .service-content h3 {
+                font-size: 1.5rem;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+            .service-content p {
+                font-size: 1rem;
+                color: #777;
+                margin-bottom: 15px;
+            }
+
+        .service-btn {
+            background: black;
+            color: #e8b44b;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: cursive;
+            border-radius: 50px;
+            outline: none;
+            box-shadow: none;
+            transition: background 0.3s ease-in-out;
+        }
+
+            .service-btn:hover {
+                background-color: #e8b44b;
+                color: white;
+                outline: none;
+                box-shadow: none;
+            }
+
+        .service-card:hover .service-content h3 {
+            color: #e8b44b; /* Change color on hover */
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <header>
+
+        <!-- Slider -->
+        <div id="salonCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- Göstergeler -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="7" aria-label="Slide 8"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="8" aria-label="Slide 9"></button>
+
+            </div>
+
+            <!-- Slider İçeriği -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/images/ciltbakimi.png" class="d-block w-100" alt="Slider Image 1">
+                    <div class="carousel-caption">
+                        <button class="btn">Skin Care</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/epilasyon-lazer.png" class="d-block w-100" alt="Slider Image 2">
+                    <div class="carousel-caption">
+                        <button class="btn">Laser Hair Removal</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/epilasyon-agda.png" class="d-block w-100" alt="Slider Image 3">
+                    <div class="carousel-caption">
+                        <button class="btn">Wax Epilation</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/manikur.png" class="d-block w-100" alt="Slider Image 4">
+                    <div class="carousel-caption">
+                        <button class="btn">Manicure</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/pedikür.png" class="d-block w-100" alt="Slider Image 5">
+                    <div class="carousel-caption">
+                        <button class="btn">Pedicure</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/protez.png" class="d-block w-100" alt="Slider Image 6">
+                    <div class="carousel-caption">
+                        <button class="btn">Nail Prosthesis</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/sacbakim.png" class="d-block w-100" alt="Slider Image 7">
+                    <div class="carousel-caption">
+                        <button class="btn">Hair Care</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/sacboyama.png" class="d-block w-100" alt="Slider Image 8">
+                    <div class="carousel-caption">
+                        <button class="btn">Hair Coloring</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/sackesim.png" class="d-block w-100" alt="Slider Image 9">
+                    <div class="carousel-caption">
+                        <button class="btn">Hair Cutting</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Oklar -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#salonCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#salonCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <div class="services-container">
+            <div class="service-card">
+                <div class="service-content">
+                    <button class="service-btn">Skin Care</button><br /><br />
+                    <p>Rejuvenate your skin with our expert skincare treatments designed to nourish and restore your natural glow.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-content">
+                    <button class="service-btn">Laser Hair Removal</button><br /><br />
+                    <p>Say goodbye to unwanted hair with our safe and effective laser hair removal services.</p><br />
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-content">
+                    <button class="service-btn">Wax Epilation</button><br /><br />
+                    <p>Smooth and silky skin with our professional wax epilation treatments.</p><br />
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-content">
+                    <button class="service-btn">Manicure</button><br /><br />
+                    <p>Pamper your hands with our luxurious manicure services that leave your nails looking flawless.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-content">
+                    <button class="service-btn">Pedicure</button><br /><br />
+                    <p>Treat your feet to a relaxing pedicure, perfect for soft and smooth feet.</p><br />
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-content">
+                    <button class="service-btn">Nail Prosthesis</button><br /><br />
+                    <p>Enhance the beauty of your nails with our high-quality nail prosthesis treatments.</p><br />
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-content">
+                    <button class="service-btn">Hair Care</button><br /><br />
+                    <p>Revitalize your hair with our hair care services, designed to nourish and protect your locks.</p><br />
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-content">
+                    <button class="service-btn">Hair Coloring</button><br /><br />
+                    <p>Transform your look with our professional hair coloring services, tailored to your style and preferences.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-content">
+                    <button class="service-btn">Hair Cutting</button><br /><br />
+                    <p>Whether you want a fresh cut or a complete new look, our experienced stylists will give you the perfect haircut.</p>
+                </div>
+            </div>
+        </div>
+
+
+    </header>
+ 
+</body>
+
+</html>
