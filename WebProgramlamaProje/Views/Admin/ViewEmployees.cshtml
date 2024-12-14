@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WebProgramlamaProje.Models.Employee>
+
+<h2>Tüm Çalışanlar</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Adı</th>
+            <th>Soyadı</th>
+            <th>Bağlı Olduğu Salon</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.Name</td>
+                <td>@employee.Surname</td>
+                <td>@employee.Salon?.Name</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="EditEmployee" asp-route-id="@employee.EmployeeId">Düzenle</a>
+                    <form asp-action="DeleteEmployee" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@employee.EmployeeId" />
+                        <button class="btn btn-danger" onclick="return confirm('Bu çalışanı silmek istediğinizden emin misiniz?');">Sil</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-success" asp-action="AddEmployee">Yeni Çalışan Ekle</a>

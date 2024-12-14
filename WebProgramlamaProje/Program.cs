@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using WebProgramlamaProje.Models;
 
 namespace WebProgramlamaProje
 {
@@ -32,13 +33,37 @@ namespace WebProgramlamaProje
                 app.UseHsts();
             }
 
+            // Seed Admin User
+            void SeedAdminUser(ApplicationDbContext dbContext)
+            {
+                if (!dbContext.Users.Any(u => u.Role == "Admin"))
+                {
+                    var adminUser = new User
+                    {
+                        Name = "Admin",
+                        Surname = "Admin",
+                        Email = "b191210047@sakarya.edu.tr",
+                        Password = "123456789",
+                        Role = "Admin"
+                    };
+
+                    dbContext.Users.Add(adminUser);
+                    dbContext.SaveChanges();
+                }
+            }
+
+            // Call the seed method
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                SeedAdminUser(dbContext);
+            }
+
             app.UseHttpsRedirection();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
             app.UseStaticFiles();
-
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization(); 
 
             app.MapControllerRoute(
                 name: "default",
