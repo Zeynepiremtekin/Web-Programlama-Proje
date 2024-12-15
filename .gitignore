@@ -362,3 +362,11 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /WebProgramlamaProje/wwwroot/images
+/WebProgramlamaProje/appsettings.json
+/WebProgramlamaProje/Properties/serviceDependencies.json
+/WebProgramlamaProje/Properties/serviceDependencies.local.json
+/WebProgramlamaProje/WebProgramlamaProje.csproj
+/WebProgramlamaProje/Migrations/20241215123025_InitialCreate.cs
+/WebProgramlamaProje/Migrations/20241215123025_InitialCreate.Designer.cs
+/WebProgramlamaProje/Migrations/20241210171617_InitialCreate.cs
+/WebProgramlamaProje/Migrations/20241210171617_InitialCreate.Designer.cs
