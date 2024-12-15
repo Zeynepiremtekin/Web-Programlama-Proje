@@ -1,0 +1,147 @@
+﻿<style>
+    /* Genel About Us Bölümü */
+    #about {
+
+        font-family: cursive;
+    }
+
+    .main-title {
+        color: #e8b44b;
+        font-weight: bold;
+        font-size: 2.2rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+
+    /* Kart Tasarımı */
+    .about-card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+    }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .about-card h4 {
+            color: #e8b44b;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .about-card p, .about-list li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+
+    /* Liste Stili */
+    .about-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .about-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .about-list i {
+            color: #e8b44b;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+    /* CTA Butonu */
+    .call-to-action {
+        font-weight: bold;
+        color: #e8b44b;
+        background-color:black;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+
+    }
+
+        .call-to-action:hover {
+            background-color: #e8b44b;
+            color: #fff;
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+</style>
+
+
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<section id="about" class="py-5">
+    <div class="container text-center">
+        <!-- Ana Başlık -->
+        <h2 class="mb-5 main-title">
+            At <span>HAIRDRESSER</span>, we believe in confidence and beauty!
+        </h2>
+
+        <!-- Giriş Paragrafı -->
+        <p class="lead mb-5" style="max-width: 800px; margin: 0 auto; line-height: 1.8; opacity: 0.9;">
+            Our platform is dedicated to connecting you with professional hair and beauty experts, making self-care more accessible, personalized, and enjoyable.
+        </p>
+
+        <!-- Kartlar -->
+        <div class="row">
+            <!-- Our Mission -->
+            <div class="col-md-4 mb-4">
+                <div class="about-card">
+                    <h4>Our Mission</h4>
+                    <p>
+                        We strive to revolutionize the beauty industry by combining technology with exceptional service.
+                        Quick haircuts, stunning hairstyles, or full pampering—we’ve got you covered.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="col-md-4 mb-4">
+                <div class="about-card">
+                    <h4>Why Choose Us?</h4>
+                    <ul class="about-list">
+                        <li><i class="bi bi-check-circle-fill"></i> Expert Stylists: Passionate professionals.</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Tailored Services: Customized to your needs.</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Seamless Booking: Easy online scheduling.</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Transparency: Upfront reviews & pricing.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Our Values -->
+            <div class="col-md-4 mb-4">
+                <div class="about-card">
+                    <h4>Our Values</h4>
+                    <ul class="about-list">
+                        <li><i class="bi bi-star-fill"></i> Quality: Ensuring the highest standards.</li>
+                        <li><i class="bi bi-star-fill"></i> Inclusivity: Serving all styles & preferences.</li>
+                        <li><i class="bi bi-star-fill"></i> Innovation: Technology-driven excellence.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Butonu -->
+        <div class="mt-4">
+            <a href="#" class="btn btn-warning px-5 py-3 call-to-action">
+                Join Thousands of Happy Clients
+            </a>
+        </div>
+    </div>
+</section>
