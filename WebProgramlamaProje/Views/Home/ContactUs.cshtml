@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<style>
+    /* Contact Us Section */
+    #contact-us {
+        font-family: cursive;
+        background: linear-gradient(145deg, black, #3a3a3a);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+        margin: 2rem auto; /* Ortala */
+        color: #fff;
+        font-family: cursive;
+    }
+
+    .section-title {
+        color: #e8b44b;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .contact-info {
+        background: #262626;
+        color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: left;
+    }
+
+        .contact-info h4 {
+            color: #e8b44b;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+            .contact-info ul li {
+                margin-bottom: 10px;
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+                .contact-info ul li i {
+                    color: #e8b44b;
+                    margin-right: 10px;
+                }
+
+    .social-icons a {
+        font-size: 1.5rem;
+        color: #e8b44b;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .social-icons a:hover {
+            color: #e8b44b;
+        }
+
+    #contact-form .form-label {
+        font-weight: bold;
+        color: #e8b44b;
+    }
+
+    #contact-form .form-control {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+        #contact-form .form-control:focus {
+            border-color: #e8b44b;
+            box-shadow: 0 0 8px rgba(232, 180, 75, 0.5);
+        }
+
+    #contact-form .btn-primary {
+        background-color: black;
+        color:#e8b44b;
+        border: none;
+        font-weight: bold;
+        border-radius: 50px;
+        transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+        #contact-form .btn-primary:hover {
+            background-color: #e8b44b;
+            color:white;
+            transform: scale(1.05);
+        }
+
+</style>
+
+<section id="contact-us" class="py-5">
+    <div class="container">
+        <!-- Başlık -->
+        <h2 class="text-center mb-5 section-title">Contact Us</h2>
+
+        <div class="row">
+            <!-- İletişim Bilgileri -->
+            <div class="col-md-6 mb-4">
+                <div class="contact-info p-4">
+                    <h4>Get in Touch</h4>
+                    <p>If you have any questions or need assistance, feel free to contact us!</p>
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="bi bi-geo-alt-fill"></i> Sakarya University
+                            Faculty of Computer and Information Sciences
+                        </li>
+                        <li><i class="bi bi-telephone-fill"></i> +90 555 444 33 22</li>
+                        <li><i class="bi bi-envelope-fill"></i> info@ogr.sakarya.edu.tr</li>
+                    </ul>
+                    <!-- Sosyal Medya İkonları -->
+                    <div class="social-icons mt-3">
+                        <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İletişim Formu -->
+            <div class="col-md-6">
+                <form id="contact-form" method="post" action="/Contact/SubmitMessage">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Your Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary px-4 py-2">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

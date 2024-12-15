@@ -1,0 +1,150 @@
+﻿<style>
+
+    /* Salon Slider Section */
+    #salon-slider {
+        font-family:cursive;
+
+    }
+
+    .section-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius:30px;
+        padding:10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+    }
+
+
+    /* Kart Tasarımı */
+    .salon-card {
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .salon-img {
+        border-radius: 30px;
+        height: 400px;
+        object-fit: cover;
+    }
+
+    .card-title {
+        color: black;
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: black;
+    }
+
+        .card-text a {
+            color: #e8b44b;
+            text-decoration: none; /* Alt çizgiyi kaldırmak için */
+        }
+
+            .card-text a:hover {
+                color: #e8b44b;
+                /* Üzerine gelindiğinde koyu mavi */
+            }
+
+    /* Carousel Indicators */
+    .carousel-indicators [data-bs-target] {
+        background-color: #e8b44b;
+        margin-bottom:-50px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .carousel-indicators .active {
+        background-color: #d4a538;
+        width: 15px;
+        height: 15px;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        filter: invert(1);
+    }
+
+    
+
+</style>
+
+<section id="salon-slider" class="py-5">
+    <div class="container">
+        <h2 class="text-center section-title">Our Salons</h2>
+
+        <div id="salonCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- Slider Göstergeleri -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Salon 1"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="1" aria-label="Salon 2"></button>
+                <button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="2" aria-label="Salon 3"></button>
+            </div>
+
+            <!-- Slider İçeriği -->
+            <div class="carousel-inner">
+                <!-- İlk Salon -->
+                <div class="carousel-item active">
+                    <div class="card text-center salon-card">
+                        <img src="~/images/salon1.png" class="card-img-top salon-img" alt="Salon 1">
+                        <div class="card-body">
+                            <h4 class="card-title">Hairdresser Isil </h4>
+                            <p class="card-text">
+                                <a href="https://www.google.com/maps/place/Serdivan,+Sakarya" target="_blank" rel="noopener noreferrer">
+                                    Serdivan/Sakarya
+                                </a>
+                            </p>
+                            <p class="card-text"><strong>Opening Hours:</strong> 09:00 AM - 08:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- İkinci Salon -->
+                <div class="carousel-item">
+                    <div class="card text-center salon-card">
+                        <img src="~/images/salon2.png" class="card-img-top salon-img" alt="Salon 2">
+                        <div class="card-body">
+                            <h4 class="card-title">Hairdresser Europe</h4>
+                            <p class="card-text">
+                                <a href="https://www.google.com/maps/place/Erenler,+Sakarya" target="_blank" rel="noopener noreferrer">
+                                    Erenler/Sakarya
+                                </a>
+                            </p>                            
+                            <p class="card-text"><strong>Opening Hours:</strong> 10:00 AM - 09:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Üçüncü Salon -->
+                <div class="carousel-item">
+                    <div class="card text-center salon-card">
+                        <img src="~/images/salon3.png" class="card-img-top salon-img" alt="Salon 3">
+                        <div class="card-body">
+                            <h4 class="card-title">Hairdresser Esra</h4>
+                            <p class="card-text">
+                                <a href="https://www.google.com/maps/place/Arifiye,+Sakarya" target="_blank" rel="noopener noreferrer">
+                                    Arifiye/Sakarya
+                                </a>
+                            </p>
+                            <p class="card-text"><strong>Opening Hours:</strong> 08:00 AM - 07:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Oklar -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#salonCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#salonCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>

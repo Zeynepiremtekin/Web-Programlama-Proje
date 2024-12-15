@@ -30,7 +30,6 @@
         /* navbar genel tasarımı */
         .navbar {
             background: linear-gradient(90deg, black, #3a3a3a); 
-            padding: 1rem;
             box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); 
             width: 100%; 
             z-index: 1000; 
@@ -218,13 +217,13 @@
                             <a class="nav-link" href="http://localhost:5162/Home/Services">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Gallery</a>
+                            <a class="nav-link" href="http://localhost:5162/Home/Salons">Salons</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">TryAI</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact Us</a>
+                            <a class="nav-link" href="http://localhost:5162/Home/ContactUs">Contact Us</a>
                         </li>
                     </ul>
 
@@ -258,6 +257,8 @@
 
                 </div>
             </div>
+
+
         </nav>   
 
     </header>
@@ -332,7 +333,7 @@
             </div>
         </div>
     </footer>
-
+  
 
 
 
@@ -340,20 +341,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <script>
-        // Şu anki sayfanın URL'sini al
-        const currentURL = window.location.href;
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        navLinks.forEach(link => {
-            // Eğer menüdeki link, mevcut URL ile eşleşirse
-            if (link.href === currentURL) {
-                link.classList.add('active'); // 'active' sınıfını ekle
-            }
-        });
-
-
-    </script>
+  
 
 
     @await RenderSectionAsync("Scripts", required: false)

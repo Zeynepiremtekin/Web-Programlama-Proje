@@ -37,7 +37,12 @@ namespace WebProgramlamaProje.Controllers
             return View();
         }
 
-        public IActionResult Services()
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+
+        public IActionResult Salons()
         {
             return View();
         }

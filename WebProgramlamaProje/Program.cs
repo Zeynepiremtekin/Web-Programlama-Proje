@@ -33,7 +33,7 @@ namespace WebProgramlamaProje
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            /*
             // Seed Admin User
             void SeedAdminUser(ApplicationDbContext dbContext)
             {
@@ -59,7 +59,7 @@ namespace WebProgramlamaProje
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 SeedAdminUser(dbContext);
             }
-
+            */
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
