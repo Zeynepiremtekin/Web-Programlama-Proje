@@ -15,6 +15,16 @@ namespace WebProgramlamaProje.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                // Kullan?c? giri? yapt?ysa, Claim'den ad? çekip ViewBag'e at?yoruz
+                ViewBag.UserFullName = User.Identity.Name;
+            }
+            else
+            {
+                ViewBag.UserFullName = null;
+            }
+
             return View();
         }
 

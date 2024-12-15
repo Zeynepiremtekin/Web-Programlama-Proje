@@ -62,7 +62,7 @@ namespace WebProgramlamaProje.Controllers
             }
 
             // Giriş başarısızsa hata mesajı
-            TempData["Error"] = "E-posta veya şifre hatalı.";
+            TempData["Error"] = "Invalid email or password.";
             return View();
         }
 

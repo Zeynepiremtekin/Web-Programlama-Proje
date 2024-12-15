@@ -11,24 +11,36 @@
 
 
     <style>
-     
+
+        html, body , head {
+            height: 100%; /* Tüm ekran yüksekliğini kaplar */
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* İçerikleri dikey sıralar */
+            font-family:cursive;
+        }
+
+        /* Ana içerik */
+        main {
+            flex: 1; /* Sayfa içeriği kalan alanı kaplar */
+            padding: 20px;
+        }
+
+
         /* navbar genel tasarımı */
         .navbar {
             background: linear-gradient(90deg, black, #3a3a3a); 
             padding: 1rem;
             box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
             width: 100%; 
             z-index: 1000; 
+
 
         }
 
         /* logo tasarımı */
         .navbar-brand {
             font-family: cursive;
-            font-size: 2rem;
             font-weight: bold;
             color: #e8b44b; 
             display: flex;
@@ -38,7 +50,6 @@
 
             .navbar-brand i {
                 margin-right: 10px;
-                font-size: 2.4rem;
                 color: #d4a538;
             }
 
@@ -51,7 +62,7 @@
         .navbar-nav .nav-link {
             color: #ffffff;
             margin-right: 1.5rem;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-family: cursive;
             letter-spacing: 0.5px;
             transition: color 0.3s, transform 0.3s ease, text-shadow 0.3s;
@@ -84,31 +95,25 @@
                 }
 
 
-        /* arama butonu tasarımı */
-        .search-btn {
-            background-color: #e8b44b;
-            border: none;
-            color: #1a1a1a;
-            font-size: 1.2rem;
-            transition: all 0.3s ease-in-out;
-            border-radius: 50%;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-            .search-btn:hover {
-                background-color: #d4a538;
-                transform: scale(1.2);
-            }
-
         /* navbar içerik tasarımı */
         .navbar-container {
             font-family: cursive;          
             max-width: 1400px;
             margin: 0 auto;
         }
+
+        .navbar .btn {
+            border-radius: 50px;
+            font-weight: bold;
+            color: #e8b44b;
+            background-color:black;
+        }
+
+        .navbar .btn:hover {
+            background-color: #e8b44b;
+            color: white;
+            transition: background 0.3s ease-in-out;
+            }
 
         .custom-toggler {
             border: none; 
@@ -139,11 +144,12 @@
             font-family: cursive;
             box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); 
             padding: 2rem 0; 
-            font-size: 0.9rem; 
+            font-size: 1rem; 
+
         }
 
             footer h5 {
-                font-size: 1.2rem; 
+                font-size: 1rem;
                 font-weight: bold;
                 margin-bottom: 1rem;
             }
@@ -188,7 +194,7 @@
             <div class="navbar-container container-fluid">
                 <!-- firma logosu -->
                 <a class="nav-link" href="http://localhost:5162/Home/Index">
-                    <i class="bi bi-scissors navbar-brand ">HAIRDRESSER</i>
+                    <i class="bi bi-scissors navbar-brand " style="font-size:2rem;">HAIRDRESSER</i>
 
                 </a>
 
@@ -219,19 +225,41 @@
                         </li>
                     </ul>
 
-                    <!-- arama barı -->
-                    <form class="d-flex ms-3">
-                        <button class="btn search-btn" type="submit">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </form>
+                    <ul class="navbar-nav ms-3">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <!-- Kullanıcı Adı Görünümü -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li>
+                                        <a class="dropdown-item" asp-action="Logout" asp-controller="Home">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Giriş Yap ve Kayıt Ol Butonları -->
+                            <li class="nav-item">
+                                <a class="btn  me-2" asp-action="LoginPage" asp-controller="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn " href="#">Sign Up</a>
+                            </li>
+                        }
+                    </ul>
+
                 </div>
             </div>
-        </nav>
-
-        
+        </nav>   
 
     </header>
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
