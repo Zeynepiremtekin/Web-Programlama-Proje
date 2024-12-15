@@ -17,6 +17,7 @@ namespace WebProgramlamaProje
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Login/LoginPage"; // Giriþ sayfasý yolu
+                    options.LogoutPath = "/Logout";
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Oturum süresi
                 });
 
