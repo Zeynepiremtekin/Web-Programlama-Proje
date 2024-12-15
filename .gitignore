@@ -366,3 +366,7 @@ FodyWeavers.xsd
 /WebProgramlamaProje/Properties/serviceDependencies.local.json
 /WebProgramlamaProje/Migrations/20241215123025_InitialCreate.cs
 /WebProgramlamaProje/Migrations/20241215123025_InitialCreate.Designer.cs
+/WebProgramlamaProje/Program.cs
+/WebProgramlamaProje/appsettings.json
+/WebProgramlamaProje/WebProgramlamaProje.csproj
+/WebProgramlamaProje.sln
