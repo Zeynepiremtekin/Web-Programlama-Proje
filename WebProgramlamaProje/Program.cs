@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+ï»¿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using WebProgramlamaProje.Models;
 
@@ -16,9 +16,9 @@ namespace WebProgramlamaProje
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Login/LoginPage"; // Giriþ sayfasý yolu
+                    options.LoginPath = "/Login/LoginPage"; // GiriÃ¾ sayfasÃ½ yolu
                     options.LogoutPath = "/Logout";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Oturum süresi
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Oturum sÃ¼resi
                 });
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
