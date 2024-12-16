@@ -1,0 +1,170 @@
+﻿﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Analysis and Hair Style Suggestion</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: cursive;
+        }
+
+        /* Ana container */
+        #face-analysis .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 30px;
+            max-width: 1000px;
+            margin-top: -10px; /* Ortalanmış yapı */
+            align-items: start;
+            padding: 20px;
+            border: 2px solid #e8b44b; /* Genel çerçeve */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #e8b44b;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #e8b44b;
+            font-weight: bold;
+            font-size: 2rem;
+            text-align: center;
+            background-color: black;
+            border-radius: 30px;
+            padding: 10px;
+            background: linear-gradient(90deg, black, #3a3a3a);
+            margin-left: 12px;
+            margin-right: 12px;
+        }
+
+        /* Canvas alanı */
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        canvas {
+            width: 100%;
+            max-width: 400px; /* Canvas büyütüldü */
+            height: 400px;
+            border: 3px solid #e8b44b;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form */
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 15px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e8b44b;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+            .form-control:focus {
+                border-color: #d4a538;
+                box-shadow: 0 0 10px rgba(232, 180, 75, 0.5);
+            }
+
+        .button {
+            font-weight: bold;
+            background-color: black;
+            color: #e8b44b;
+            border-radius: 20px;
+            border: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .button:hover {
+                background-color: #e8b44b;
+                color: white;
+                transform: scale(1.05);
+            }
+
+        /* Suggestions bölümü */
+        .recommendations {
+            background-color: #f8f9fa;
+            border: 2px solid #e8b44b;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            .recommendations p {
+                color: #333;
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+    </style>
+</head>
+<body>
+    <section id="face-analysis" class="py-5">
+        <h3 class="mb-3">Upload Your Photo</h3>
+
+        <div class="container">
+            <!-- Sol taraf: Canvas ve Upload -->
+            <div class="canvas-container">
+                <canvas id="canvas" class="mb-3"></canvas>
+                <form id="uploadForm" class="form-container">
+                    <input type="file" id="imageUpload" name="file" accept="image/*" class="form-control mb-3">
+                    <button type="submit" class="btn button w-100">Upload and Analyze</button>
+                </form>
+            </div>
+
+            <!-- Sağ taraf: Suggestions -->
+            <div class="recommendations">
+                <h2 class="text-center mb-3" style="color:#e8b44b">Suggestions</h2>
+                <p id="result" class="text-center">Your personalized hair style suggestions will appear here.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const imageUpload = document.getElementById('imageUpload');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = 400; // Canvas genişliği
+        canvas.height = 400; // Canvas yüksekliği
+
+        imageUpload.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = new Image();
+
+                    img.onload = function () {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    };
+
+                    img.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        });
+    </script>
+</body>
+</html>
