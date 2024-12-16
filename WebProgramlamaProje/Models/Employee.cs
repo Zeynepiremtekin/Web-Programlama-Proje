@@ -19,5 +19,7 @@ namespace WebProgramlamaProje.Models
         public int SalonId { get; set; }
 
         public Salon? Salon { get; set; } // Çalışanın bağlı olduğu salon
+
+        public List<Service> Services { get; set; } = new List<Service>();
     }
 }

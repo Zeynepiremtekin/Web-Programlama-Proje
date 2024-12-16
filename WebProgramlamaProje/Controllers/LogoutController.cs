@@ -10,14 +10,11 @@ namespace WebProgramlamaProje.Controllers
     {
         // Kullanıcı çıkışı
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            // Kullanıcıyı çıkış yap
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            // Ana sayfaya yönlendir
-            return RedirectToAction("Index", "Home");
+            await HttpContext.SignOutAsync(); // Kullanıcı oturumunu kapat
+            return RedirectToAction("Index", "Home"); // Ana sayfaya yönlendir
         }
     }
 }
+

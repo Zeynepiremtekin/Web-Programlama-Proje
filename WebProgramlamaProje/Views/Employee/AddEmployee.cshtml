@@ -3,24 +3,40 @@
 <h2>Yeni Çalışan Ekle</h2>
 
 <form asp-action="AddEmployee" method="post">
+    <!-- Adı -->
     <div class="form-group">
         <label>Adı</label>
         <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+    <!-- Soyadı -->
     <div class="form-group">
         <label>Soyadı</label>
         <input asp-for="Surname" class="form-control" />
-        <span asp-validation-for="Surname" class="text-danger"></span>
     </div>
+    <!-- Salon -->
     <div class="form-group">
         <label>Salon</label>
-        <select asp-for="SalonId" asp-items="ViewBag.SalonList" class="form-control">
-            <option value="">Salon Seçiniz</option>
-        </select>
-        <span asp-validation-for="SalonId" class="text-danger"></span>
+        <select asp-for="SalonId" asp-items="ViewBag.SalonList" class="form-control"></select>
     </div>
+    <!-- Hizmetler -->
+    <div class="form-group">
+        <label>Hizmetler</label>
+        <div class="checkbox-group">
+            @foreach (var service in ViewBag.ServiceList)
+            {
+                <div class="form-check">
+                    <input type="checkbox"
+                           name="selectedServices"
+                           value="@service.Value"
+                           class="form-check-input"
+                           id="service_@service.Value" />
+                    <label class="form-check-label" for="service_@service.Value">
+                        @service.Text
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- Kaydet Butonu -->
     <button type="submit" class="btn btn-success">Kaydet</button>
 </form>
-
-<a asp-action="ViewEmployees" class="btn btn-secondary">Geri</a>

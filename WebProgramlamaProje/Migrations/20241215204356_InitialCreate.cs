@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -24,6 +23,21 @@ namespace WebProgramlamaProje.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Salons", x => x.SalonId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Services",
+                columns: table => new
+                {
+                    ServiceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Services", x => x.ServiceId);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,50 +79,23 @@ namespace WebProgramlamaProje.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Services",
+                name: "EmployeeService",
                 columns: table => new
                 {
-                    ServiceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Duration = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Services", x => x.ServiceId);
-                    table.ForeignKey(
-                        name: "FK_Services_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Appointments",
-                columns: table => new
-                {
-                    AppointmentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    CustomerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CustomerEmail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    IsConfirmed = table.Column<bool>(type: "bit", nullable: false)
+                    ServiceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Appointments", x => x.AppointmentId);
+                    table.PrimaryKey("PK_EmployeeService", x => new { x.EmployeeId, x.ServiceId });
                     table.ForeignKey(
-                        name: "FK_Appointments_Employees_EmployeeId",
+                        name: "FK_EmployeeService_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Appointments_Services_ServiceId",
+                        name: "FK_EmployeeService_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "ServiceId",
@@ -116,40 +103,30 @@ namespace WebProgramlamaProje.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_EmployeeId",
-                table: "Appointments",
-                column: "EmployeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Appointments_ServiceId",
-                table: "Appointments",
-                column: "ServiceId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Employees_SalonId",
                 table: "Employees",
                 column: "SalonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_EmployeeId",
-                table: "Services",
-                column: "EmployeeId");
+                name: "IX_EmployeeService_ServiceId",
+                table: "EmployeeService",
+                column: "ServiceId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Appointments");
+                name: "EmployeeService");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "Salons");

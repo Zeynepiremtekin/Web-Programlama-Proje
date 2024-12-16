@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebProgramlamaProje.Models.Service>
+
+<h2>Hizmetler</h2>
+<a asp-action="CreateService" class="btn btn-success mb-3">Yeni Hizmet Ekle</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Hizmet Adı</th>
+            <th>Süre (Dakika)</th>
+            <th>Fiyat (₺)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model)
+        {
+            <tr>
+                <td>@service.Name</td>
+                <td>@service.Duration</td>
+                <td>@service.Price</td>
+                <td>
+                    <a asp-action="EditService" asp-route-id="@service.ServiceId" class="btn btn-primary btn-sm">Düzenle</a>
+                    <form asp-action="DeleteService" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@service.ServiceId" />
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bu hizmeti silmek istediğinize emin misiniz?');">
+                            Sil
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
