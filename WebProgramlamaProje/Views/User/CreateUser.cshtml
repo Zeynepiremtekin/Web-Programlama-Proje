@@ -1,30 +1,147 @@
 ﻿@model WebProgramlamaProje.Models.User
 
-<h2>Kullanıcı Kaydı</h2>
-@if (TempData["Error"] != null)
-{
-    <p style="color:red;">@TempData["Error"]</p>
-}
-<form asp-action="CreateUser" method="post">
-    <div>
-        <label>Ad:</label>
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebProgramlamaProje</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebProgramlamaProje.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <style>
+        .signup-container {
+            background: linear-gradient(145deg, black, #3a3a3a);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            margin: 2rem auto; /* Ortala */
+            color: #fff;
+            font-family: cursive;
+        }
+
+            .signup-container h2 {
+                color: #e8b44b; /* Altın rengi başlık */
+                margin-bottom: 1.5rem;
+                font-weight: bold;
+                text-align: center;
+            }
+
+        .form-control {
+            background-color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 15px;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+            .form-control:focus {
+                box-shadow: 0 0 8px #e8b44b;
+                outline: none;
+            }
+
+        /* Login Butonu */
+        .btn-signup {
+            background-color: #e8b44b;
+            color: #1a1a1a;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            width: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .btn-signup:hover {
+                background-color: #d4a538;
+                color: white;
+                transform: scale(1.05);
+            }
+
+        /* Forgot Password Link */
+        .forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+            .forgot-password a {
+                color: #e8b44b;
+                text-decoration: none;
+                font-size: 0.9rem;
+            }
+
+                .forgot-password a:hover {
+                    text-decoration: underline;
+                    color: white;
+                }
+
+
+        .error-message {
+            margin: 2rem auto; /* Ortala */
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            font-family: cursive;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="signup-container">
+        <h2>User Registration</h2>
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["Error"]
+            </div>
+        }
+
+        <form asp-action="CreateUser" method="post">
+            <!-- Name -->
+            <div class="mb-3 text-start">
+                <label for="Name" class="form-label">First Name:</label>
+                <input asp-for="Name" class="form-control" placeholder="Enter your first name" required />
+            </div>
+
+            <!-- Surname -->
+            <div class="mb-3 text-start">
+                <label for="Surname" class="form-label">Last Name:</label>
+                <input asp-for="Surname" class="form-control" placeholder="Enter your last name" required />
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3 text-start">
+                <label for="Email" class="form-label">E-mail:</label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" required />
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3 text-start">
+                <label for="Password" class="form-label">Password:</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" required />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-signup w-100">Sign Up</button>
+
+            <!-- Forgot Password -->
+            <div class="mt-3">
+                <div class="forgot-password">
+                    <a href="https://localhost:7042/Login/LoginPage">Already have an account? Login here.</a>
+                </div>
+            </div>
+        </form>
     </div>
-    <div>
-        <label>Soyad:</label>
-        <input asp-for="Surname" />
-        <span asp-validation-for="Surname"></span>
-    </div>
-    <div>
-        <label>Email:</label>
-        <input asp-for="Email" type="email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label>Şifre:</label>
-        <input asp-for="Password" type="password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <button type="submit">Kayıt Ol</button>
-</form>
+
+</body>
+
+
+</html>

@@ -1,33 +1,101 @@
 ﻿@model IEnumerable<WebProgramlamaProje.Models.Service>
 
-<h2>Hizmetler</h2>
-<a asp-action="CreateService" class="btn btn-success mb-3">Yeni Hizmet Ekle</a>
+<style>
+    /* Section Title */
+    .section-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+        margin-top: 50px;
+        text-align:center;
+    }
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Hizmet Adı</th>
-            <th>Süre (Dakika)</th>
-            <th>Fiyat (₺)</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var service in Model)
-        {
-            <tr>
-                <td>@service.Name</td>
-                <td>@service.Duration</td>
-                <td>@service.Price</td>
-                <td>
-                    <a asp-action="EditService" asp-route-id="@service.ServiceId" class="btn btn-primary btn-sm">Düzenle</a>
-                    <form asp-action="DeleteService" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@service.ServiceId" />
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bu hizmeti silmek istediğinize emin misiniz?');">
-                            Sil
-                        </button>
-                    </form>
-                </td>
-            </tr>
+    /* Add Button */
+    .btn-add {
+        background-color: #1a1a1a; /* Siyah arka plan */
+        color: #e8b44b; /* Altın sarısı yazı */
+        border-radius: 50px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        margin-top: 15px;
+    }
+
+        .btn-add:hover {
+            background-color: #e8b44b;
+            color: #1a1a1a;
         }
-    </tbody>
-</table>
+
+    /* Edit Button */
+    .btn-edit {
+        background-color: #e8b44b;
+        color: #1a1a1a;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-edit:hover {
+            background-color: #1a1a1a;
+            color: #e8b44b;
+        }
+
+    /* Delete Button */
+    .btn-delete {
+        background-color: #ffffff; /* Beyaz arkaplan */
+        color: #1a1a1a; /* Siyah yazı */
+        border-radius: 10px;
+        border: 1px solid #1a1a1a;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-delete:hover {
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+        }
+
+</style>
+
+<!-- Sayfa Başlığı -->
+<h2 class="section-title">Services</h2>
+
+<!-- Add New Service Button -->
+<div class="text-center mb-4">
+    <a asp-action="CreateService" class="btn btn-add px-4 py-2">Add New Service</a>
+</div>
+
+<!-- Service Table -->
+<div class="container">
+    <table class="table table-bordered text-center shadow-lg" style="border-radius: 15px; overflow: hidden; background-color: #fff; font-family: cursive;">
+        <thead style="background-color: #3a3a3a; color: #e8b44b;">
+            <tr>
+                <th>Service Name</th>
+                <th>Duration (Minutes)</th>
+                <th>Price (₺)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var service in Model)
+            {
+                <tr>
+                    <td>@service.Name</td>
+                    <td>@service.Duration</td>
+                    <td>@service.Price</td>
+                    <td>
+                        <!-- Edit Button -->
+                        <a asp-action="EditService" asp-route-id="@service.ServiceId" class="btn btn-edit btn-sm me-2">Edit</a>
+
+                        <!-- Delete Button -->
+                        <form asp-action="DeleteService" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@service.ServiceId" />
+                            <button type="submit" class="btn btn-delete btn-sm" onclick="return confirm('Are you sure you want to delete this service?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

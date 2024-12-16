@@ -117,7 +117,7 @@
 
         .custom-toggler {
             border: none; 
-            background-color: #d4a538;
+            background-color: #e8b44b;
             padding: 10px 15px;
             border-radius: 50%;
 
@@ -136,6 +136,48 @@
                 transform: scale(1.2);
                 transition: all 0.3s ease-in-out;
             }
+
+
+        /* Dropdown Menü İçindeki Item */
+        .custom-dropdown-item {
+            color: #e8b44b;
+            font-family: cursive;
+            font-size: 1rem;
+            padding: 10px 20px;
+            transition: background 0.3s ease, transform 0.2s ease-in-out;
+        }
+
+            /* Hover Efekti */
+            .custom-dropdown-item:hover {
+                background-color: #e8b44b;
+                color: #1f1f1f;
+                transform: translateX(5px); /* Hafif sağa kayma */
+                font-weight: bold;
+            }
+
+            /* Logout Butonu İçin Ek Ayarlar */
+            .custom-dropdown-item button {
+                background: none;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+            }
+
+        /* Dropdown Menü Ok İşareti */
+        .custom-dropdown-menu::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid #2c2c2c; /* Menü arkaplanına uyumlu renk */
+        }
+
+
 
         /* footer tasarımı */
         footer {
@@ -232,16 +274,40 @@
                         {
                             <!-- Kullanıcı Adı Görünümü -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                    @User.Identity.Name
+                                <a class="nav-link dropdown-toggle" style="color: #e8b44b;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle" style="font-size: 1.25rem; color: #e8b44b;"></i> @User.Identity.Name
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+
+                                <!-- Dropdown Menüsü -->
+                                <ul class="dropdown-menu custom-dropdown-menu">
+                                    <!-- Kullanıcı Rolüne Göre Profil Yönlendirme -->
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item custom-dropdown-item" style="color: #e8b44b;" onmouseover="this.style.color='black';" onmouseout="this.style.color='#e8b44b';" asp-action="Index" asp-controller="Admin">Admin Profile</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a class="dropdown-item custom-dropdown-item" style="color: #e8b44b;" onmouseover="this.style.color='black';" onmouseout="this.style.color='#e8b44b';" asp-action="UserProfile" asp-controller="User">User Profile</a>
+                                        </li>
+                                    }
+
+                                    <!-- Logout Butonu -->
                                     <li>
-                                        <a class="dropdown-item" asp-action="Index" asp-controller="Home">Logout</a>
+                                        <form method="post" asp-action="Logout" asp-controller="Logout" style="margin: 0;">
+                                            <button type="submit" class="dropdown-item custom-dropdown-item" style="color: #e8b44b;"
+                                                    onmouseover="this.style.color='black';"
+                                                    onmouseout="this.style.color='#e8b44b';">
+                                                Logout
+                                            </button>
+                                        </form>
                                     </li>
                                 </ul>
                             </li>
+
+                        
                         }
                         else
                         {
@@ -250,10 +316,11 @@
                                 <a class="btn  me-2" asp-action="LoginPage" asp-controller="Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn " href="#">Sign Up</a>
+                                <a class="btn  me-2" asp-action="CreateUser" asp-controller="User">Sign Up</a>
                             </li>
                         }
                     </ul>
+
 
                 </div>
             </div>

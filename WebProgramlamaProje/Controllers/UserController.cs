@@ -21,6 +21,11 @@ namespace WebProgramlamaProje.Controllers
             return View();
         }
 
+        public IActionResult UserProfile()
+        {
+            return View();
+        }
+
         // Yeni kullanıcı kaydı oluşturma işlemi
         [AllowAnonymous]
         [HttpPost]
