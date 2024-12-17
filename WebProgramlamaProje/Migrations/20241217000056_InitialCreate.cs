@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -65,7 +66,8 @@ namespace WebProgramlamaProje.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    SalonId = table.Column<int>(type: "int", nullable: false)
+                    SalonId = table.Column<int>(type: "int", nullable: false),
+                    WorkingHours = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,6 +77,48 @@ namespace WebProgramlamaProje.Migrations
                         column: x => x.SalonId,
                         principalTable: "Salons",
                         principalColumn: "SalonId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Appointments",
+                columns: table => new
+                {
+                    AppointmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    SalonId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    AppointmentDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsConfirmed = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointments", x => x.AppointmentId);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Salons_SalonId",
+                        column: x => x.SalonId,
+                        principalTable: "Salons",
+                        principalColumn: "SalonId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "ServiceId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -103,6 +147,26 @@ namespace WebProgramlamaProje.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Appointments_EmployeeId",
+                table: "Appointments",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_SalonId",
+                table: "Appointments",
+                column: "SalonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_ServiceId",
+                table: "Appointments",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_UserId",
+                table: "Appointments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Employees_SalonId",
                 table: "Employees",
                 column: "SalonId");
@@ -116,6 +180,9 @@ namespace WebProgramlamaProje.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Appointments");
+
             migrationBuilder.DropTable(
                 name: "EmployeeService");
 

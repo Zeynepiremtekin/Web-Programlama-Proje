@@ -12,6 +12,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Salon> Salons { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Service> Services { get; set; }
+    public DbSet<Appointment> Appointments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,5 +27,25 @@ public class ApplicationDbContext : DbContext
                 j => j.HasOne<Service>().WithMany().HasForeignKey("ServiceId"),
                 j => j.HasOne<Employee>().WithMany().HasForeignKey("EmployeeId")
             );
+        modelBuilder.Entity<Appointment>()
+            .HasOne(a => a.User)
+            .WithMany()
+            .HasForeignKey(a => a.UserId);
+
+        modelBuilder.Entity<Appointment>()
+            .HasOne(a => a.Salon)
+            .WithMany()
+            .HasForeignKey(a => a.SalonId);
+
+        modelBuilder.Entity<Appointment>()
+            .HasOne(a => a.Employee)
+            .WithMany()
+            .HasForeignKey(a => a.EmployeeId);
+
+        modelBuilder.Entity<Appointment>()
+            .HasOne(a => a.Service)
+            .WithMany()
+            .HasForeignKey(a => a.ServiceId);
     }
+
 }

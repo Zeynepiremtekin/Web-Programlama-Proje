@@ -21,5 +21,8 @@ namespace WebProgramlamaProje.Models
         public Salon? Salon { get; set; } // Çalışanın bağlı olduğu salon
 
         public List<Service> Services { get; set; } = new List<Service>();
+        
+        [Required(ErrorMessage = "Çalışma saatleri belirtmeniz zorunludur.")]
+        public string WorkingHours { get; set; }
     }
 }

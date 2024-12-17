@@ -24,6 +24,8 @@ namespace WebProgramlamaProje
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

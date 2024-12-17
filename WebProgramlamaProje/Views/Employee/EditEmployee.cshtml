@@ -48,6 +48,12 @@
             }
         </div>
     </div>
+    <div class="form-group">
+        <label>Çalışma Saatleri</label>
+        <input asp-for="WorkingHours" class="form-control" placeholder="Örn: 09:00 - 18:00" />
+        <span asp-validation-for="WorkingHours" class="text-danger"></span>
+    </div>
+
 
     <!-- Güncelle Butonu -->
     <button type="submit" class="btn btn-primary">Güncelle</button>

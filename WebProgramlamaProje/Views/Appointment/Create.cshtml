@@ -1,0 +1,75 @@
+﻿@model WebProgramlamaProje.Models.Appointment
+
+@{
+    ViewData["Title"] = "Randevu Oluştur";
+}
+
+<h2>Randevu Oluştur</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label>Salon Seçin</label>
+        <select id="salonSelect" asp-for="SalonId" class="form-control" asp-items="ViewBag.Salons">
+            <option value="">Salon Seçin</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Çalışan Seçin</label>
+        <select id="employeeSelect" asp-for="EmployeeId" class="form-control">
+            <option value="">Çalışan Seçin</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Hizmet Seçin</label>
+        <select id="serviceSelect" asp-for="ServiceId" class="form-control">
+            <option value="">Hizmet Seçin</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Randevu Tarihi ve Saati</label>
+        <input asp-for="AppointmentDateTime" type="datetime-local" class="form-control" required />
+        <span asp-validation-for="AppointmentDateTime" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Randevu Kaydet</button>
+</form>
+
+<div class="text-danger">
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+</div>
+
+@section Scripts {
+    <script>
+        // Salon seçimi yapıldığında çalışanları getir
+        $('#salonSelect').change(function () {
+            var salonId = $(this).val();
+            $('#employeeSelect').empty().append('<option value="">Çalışan Seçin</option>');
+            $('#serviceSelect').empty().append('<option value="">Hizmet Seçin</option>');
+
+            if (salonId) {
+                $.getJSON('/Appointment/GetEmployees', { salonId: salonId }, function (data) {
+                    $.each(data, function (index, employee) {
+                        $('#employeeSelect').append('<option value="' + employee.employeeId + '">' + employee.fullName + '</option>');
+                    });
+                });
+            }
+        });
+
+        // Çalışan seçimi yapıldığında hizmetleri getir
+        $('#employeeSelect').change(function () {
+            var employeeId = $(this).val();
+            $('#serviceSelect').empty().append('<option value="">Hizmet Seçin</option>');
+
+            if (employeeId) {
+                $.getJSON('/Appointment/GetServices', { employeeId: employeeId }, function (data) {
+                    $.each(data, function (index, service) {
+                        $('#serviceSelect').append('<option value="' + service.serviceId + '">' + service.name + '</option>');
+                    });
+                });
+            }
+        });
+    </script>
+}
