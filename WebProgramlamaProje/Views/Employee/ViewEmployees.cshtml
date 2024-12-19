@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<WebProgramlamaProje.Models.Employee>
 
-    <style>
-
+<style>
     .section-title {
         color: #e8b44b;
         font-weight: bold;
@@ -10,9 +9,10 @@
         background: linear-gradient(90deg, black, #3a3a3a);
         margin-top: 50px;
     }
+
     /* Add New Employee Button */
     .btn-add {
-        align-items:center;
+        align-items: center;
         background-color: #1a1a1a; /* Siyah arkaplan */
         color: #e8b44b; /* Sarı yazı */
         border-radius: 50px;
@@ -53,11 +53,9 @@
             background-color: #f8f9fa;
             color: #1a1a1a;
         }
+</style>
 
-
-    </style>
-
-<h2 class="text-center mb-4 section-title " >Employees</h2>
+<h2 class="text-center mb-4 section-title">Employees</h2>
 
 <!-- Add New Employee Button -->
 <div class="text-center mb-3">
@@ -73,6 +71,8 @@
                 <th>Surname</th>
                 <th>Salon</th>
                 <th>Services</th>
+                <th>Working Hours</th>
+                <th>Productivity (%)</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -98,6 +98,19 @@
                             <span>No services assigned</span>
                         }
                     </td>
+                    <td>@employee.WorkingHours</td>
+                    <td>
+                        @if (ViewBag.EmployeeEfficiencies != null)
+                        {
+                            var efficiencies = (IEnumerable<dynamic>)ViewBag.EmployeeEfficiencies;
+                            var efficiency = efficiencies.FirstOrDefault(e => e.EmployeeId == employee.EmployeeId)?.Efficiency ?? 0;
+                            @($"{efficiency:0.00} %")
+                        }
+                        else
+                        {
+                            <span>N/A</span>
+                        }
+                    </td>
                     <td>
                         <!-- Edit Button -->
                         <a asp-action="EditEmployee" asp-route-id="@employee.EmployeeId" class="btn btn-edit btn-sm me-2">Edit</a>
@@ -113,5 +126,3 @@
         </tbody>
     </table>
 </div>
-
-

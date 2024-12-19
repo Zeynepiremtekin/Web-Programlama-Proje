@@ -1,8 +1,90 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let userData = {}; // Kullanıcı bilgilerini saklayacak bir değişken
+
+            // Kullanıcı bilgilerini yükle
+            $.ajax({
+                url: "/api/ApiUser/profile",
+                type: "GET",
+                success: function (data) {
+                    userData = data; // API'den gelen bilgileri sakla
+                    $("#name").val(data.name);
+                    $("#surname").val(data.surname);
+                    $("#email").val(data.email);
+                    $("#password").val(data.password); // Şifreyi de doldur
+                },
+                error: function () {
+                    alert("Kullanıcı bilgileri yüklenirken bir hata oluştu.");
+                }
+            });
+
+            // Bilgileri güncelle
+            $("#update-profile-btn").click(function () {
+                // userData içerisindeki bilgileri güncelle
+                userData.name = $("#name").val();
+                userData.surname = $("#surname").val();
+                userData.email = $("#email").val();
+                userData.password = $("#password").val();
+
+                $.ajax({
+                    url: "/api/ApiUser/profile",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(userData),
+                    success: function () {
+                        alert("Bilgiler başarıyla güncellendi.");
+                    },
+                    error: function () {
+                        alert("Bilgiler güncellenirken bir hata oluştu.");
+                    }
+                });
+            });
+
+            // Hesabı sil
+            $("#delete-account-btn").click(function () {
+                if (confirm("Hesabınızı silmek istediğinizden emin misiniz?")) {
+                    $.ajax({
+                        url: "/api/ApiUser/profile",
+                        type: "DELETE",
+                        success: function () {
+                            alert("Hesabınız başarıyla silindi. Ana sayfaya yönlendiriliyorsunuz.");
+                            window.location.href = "/";
+                        },
+                        error: function () {
+                            alert("Hesap silinirken bir hata oluştu.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 }
 
+<h2>Kullanıcı Profili</h2>
 
-<p>USER PROFİLE </p>
+<div id="profile-container">
+    <form id="update-profile-form">
+        <div class="form-group">
+            <label for="name">Ad:</label>
+            <input type="text" id="name" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="surname">Soyad:</label>
+            <input type="text" id="surname" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="email">E-posta:</label>
+            <input type="email" id="email" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Şifre:</label>
+            <input type="password" id="password" class="form-control" required />
+        </div>
+        <button type="button" id="update-profile-btn" class="btn btn-primary">Bilgileri Güncelle</button>
+    </form>
+
+    <hr />
+
+    <button type="button" id="delete-account-btn" class="btn btn-danger">Hesabı Sil</button>
+</div>

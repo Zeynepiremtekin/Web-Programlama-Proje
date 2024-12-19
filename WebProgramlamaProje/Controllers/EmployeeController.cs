@@ -25,7 +25,40 @@ namespace WebProgramlamaProje.Controllers
                 .Include(e => e.Services)    // Çalışanın atanmış hizmetleri
                 .ToList();
 
-            return View(employees); // Görünüme gönder
+            // Verimlilik hesaplamaları
+            var employeeEfficiencies = employees.Select(employee =>
+            {
+                var totalWorkingMinutes = CalculateTotalWorkingMinutes(employee.WorkingHours);
+                var appointmentsDuration = _dbContext.Appointments
+                    .Where(a => a.EmployeeId == employee.EmployeeId && a.IsConfirmed)
+                    .Sum(a => a.Service.Duration);
+
+                var efficiency = totalWorkingMinutes > 0 ? (appointmentsDuration / (double)totalWorkingMinutes) * 100 : 0;
+
+                return new
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Efficiency = efficiency
+                };
+            }).ToList();
+
+            // Verimlilikleri ViewBag'e ekle
+            ViewBag.EmployeeEfficiencies = employeeEfficiencies;
+
+            return View(employees);
+        }
+
+        // Çalışma saatlerini dakikaya çevirme fonksiyonu
+        private int CalculateTotalWorkingMinutes(string workingHours)
+        {
+            var hours = workingHours.Split('-');
+            if (hours.Length == 2)
+            {
+                var start = TimeSpan.Parse(hours[0].Trim());
+                var end = TimeSpan.Parse(hours[1].Trim());
+                return (int)(end - start).TotalMinutes;
+            }
+            return 0;
         }
 
 
