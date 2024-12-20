@@ -7,19 +7,21 @@ namespace WebProgramlamaProje.Models
         [Key]
         public int ServiceId { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string Name { get; set; } // Sabit hizmet adı
+        [Required(ErrorMessage = "Service name is required.")]
+        [MaxLength(100, ErrorMessage = "Service name cannot exceed 100 characters.")]
+        public string Name { get; set; } 
 
-        [Required(ErrorMessage = "Süre zorunludur.")]
-        public int Duration { get; set; } // Süre (dakika cinsinden)
+        [Required(ErrorMessage = "Duration is required.")]
+        public int Duration { get; set; } 
 
-        [Required(ErrorMessage = "Fiyat zorunludur.")]
-        [Range(0, 10000, ErrorMessage = "Fiyat 0 ile 10000 arasında olmalıdır.")]
-        public decimal Price { get; set; } // Fiyat
-        public string? ImagePath { get; set; } // Resim Yolu
-        public string? VideoUrl { get; set; } // 
-        public string? Description { get; set; } // Hizmet Açıklaması
-        public List<Employee> Employees { get; set; } = new List<Employee>();
+        [Required(ErrorMessage = "Price is required.")]
+        [Range(0, 10000, ErrorMessage = "Price must be between 0 and 10000.")]
+        public decimal Price { get; set; } 
+
+        public string? ImagePath { get; set; } 
+        public string? VideoUrl { get; set; } 
+        public string? Description { get; set; } 
+
+        public List<Employee> Employees { get; set; } = new List<Employee>(); 
     }
 }

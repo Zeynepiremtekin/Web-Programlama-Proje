@@ -7,22 +7,22 @@ namespace WebProgramlamaProje.Models
         [Key]
         public int EmployeeId { get; set; }
 
-        [Required(ErrorMessage = "Adı doldurmanız zorunludur.")]
-        [MaxLength(50, ErrorMessage = "Ad 50 karakterden uzun olamaz.")]
+        [Required(ErrorMessage = "First name is required.")]
+        [MaxLength(50, ErrorMessage = "First name cannot exceed 50 characters.")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Soyadı doldurmanız zorunludur.")]
-        [MaxLength(50, ErrorMessage = "Soyad 50 karakterden uzun olamaz.")]
+        [Required(ErrorMessage = "Last name is required.")]
+        [MaxLength(50, ErrorMessage = "Last name cannot exceed 50 characters.")]
         public string Surname { get; set; }
 
-        [Required(ErrorMessage = "Salon seçmeniz zorunludur.")]
+        [Required(ErrorMessage = "You must select a salon.")]
         public int SalonId { get; set; }
 
-        public Salon? Salon { get; set; } // Çalışanın bağlı olduğu salon
+        public Salon? Salon { get; set; } 
 
         public List<Service> Services { get; set; } = new List<Service>();
-        
-        [Required(ErrorMessage = "Çalışma saatleri belirtmeniz zorunludur.")]
+
+        [Required(ErrorMessage = "Working hours are required.")]
         public string WorkingHours { get; set; }
     }
 }

@@ -6,27 +6,28 @@ namespace WebProgramlamaProje.Models
     public class Appointment
     {
         [Key]
-        public int AppointmentId { get; set; } // Randevu ID'si (Primary Key)
+        public int AppointmentId { get; set; } 
 
-        [Required]
-        public int UserId { get; set; } // Randevuyu alan kullanıcı ID'si
-        public User? User { get; set; } // Kullanıcı ile ilişki
+        [Required(ErrorMessage = "User ID is required.")]
+        public int UserId { get; set; } 
+        public User? User { get; set; } 
 
-        [Required]
-        public int SalonId { get; set; } // Seçilen salon ID'si
-        public Salon? Salon { get; set; } // Salon ile ilişki
+        [Required(ErrorMessage = "Salon ID is required.")]
+        public int SalonId { get; set; } 
+        public Salon? Salon { get; set; } 
 
-        [Required]
-        public int EmployeeId { get; set; } // Seçilen çalışan ID'si
-        public Employee? Employee { get; set; } // Çalışan ile ilişki
+        [Required(ErrorMessage = "Employee ID is required.")]
+        public int EmployeeId { get; set; } 
+        public Employee? Employee { get; set; } 
 
-        [Required]
-        public int ServiceId { get; set; } // Seçilen hizmet ID'si
-        public Service? Service { get; set; } // Hizmet ile ilişki
+        [Required(ErrorMessage = "Service ID is required.")]
+        public int ServiceId { get; set; } 
+        public Service? Service { get; set; } 
 
-        [Required]
-        public DateTime AppointmentDateTime { get; set; } // Randevu tarihi ve saati
+        [Required(ErrorMessage = "Appointment date and time are required.")]
+        [DataType(DataType.DateTime, ErrorMessage = "Please enter a valid date and time.")]
+        public DateTime AppointmentDateTime { get; set; }
 
-        public bool IsConfirmed { get; set; } = false; // Randevu onay durumu (varsayılan: onaylanmadı)
+        public bool IsConfirmed { get; set; } = false; 
     }
 }

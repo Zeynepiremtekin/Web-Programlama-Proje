@@ -53,7 +53,7 @@ namespace WebProgramlamaProje.Controllers
             user.Name = updatedUser.Name;
             user.Surname = updatedUser.Surname;
             user.Email = updatedUser.Email;
-            user.Password = updatedUser.Password; // Şifreyi de güncelle
+            user.Password = updatedUser.Password; 
 
             try
             {
@@ -66,7 +66,7 @@ namespace WebProgramlamaProje.Controllers
                 throw;
             }
 
-            return Ok(new { message = "Bilgiler başarıyla güncellendi." });
+            return Ok(new { message = "Account updated successfully." });
         }
 
         // Kullanıcı Hesabını Sil

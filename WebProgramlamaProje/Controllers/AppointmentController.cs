@@ -67,7 +67,7 @@ namespace WebProgramlamaProje.Controllers
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId))
             {
-                ModelState.AddModelError("", "Lütfen giriş yapınız.");
+                ModelState.AddModelError("", "Please sign in.");
                 FillDropdownLists();
                 return View(appointment);
             }
@@ -82,7 +82,7 @@ namespace WebProgramlamaProje.Controllers
 
             if (employee == null)
             {
-                ModelState.AddModelError("", "Seçilen çalışan bulunamadı.");
+                ModelState.AddModelError("", "The selected employee could not be found.");
                 FillDropdownLists();
                 return View(appointment);
             }
@@ -97,7 +97,7 @@ namespace WebProgramlamaProje.Controllers
 
             if (selectedService == null)
             {
-                ModelState.AddModelError("", "Hizmet bulunamadı.");
+                ModelState.AddModelError("", "Service not found");
                 FillDropdownLists();
                 return View(appointment);
             }
@@ -107,7 +107,7 @@ namespace WebProgramlamaProje.Controllers
             // Çalışma saatleri dışı kontrol
             if (appointmentTime < workingStart || appointmentEndTime > workingEnd)
             {
-                ModelState.AddModelError("", $"Bu çalışan {employee.WorkingHours} saatleri arasında çalışmaktadır.");
+                ModelState.AddModelError("", $"This employee works between {employee.WorkingHours}.");
                 FillDropdownLists();
                 return View(appointment);
             }
@@ -120,7 +120,7 @@ namespace WebProgramlamaProje.Controllers
 
             if (isConflict)
             {
-                ModelState.AddModelError("", "Seçilen saat aralığı dolu. Lütfen başka bir zaman seçin.");
+                ModelState.AddModelError("", "The selected time range is full. Please choose another time.");
                 FillDropdownLists();
                 return View(appointment);
             }

@@ -36,7 +36,7 @@ namespace WebProgramlamaProje.Controllers
             var existingUser = _dbContext.Users.FirstOrDefault(u => u.Email == receivedUser.Email);
             if (existingUser != null)
             {
-                TempData["Error"] = "Bu e-posta adresi zaten kayıtlı.";
+                TempData["Error"] = "This email address is already registered.";
                 return View(receivedUser); // Kullanıcıyı form ekranına geri döndür
             }
 
@@ -52,7 +52,7 @@ namespace WebProgramlamaProje.Controllers
             }
             else
             {
-                TempData["Warning"] = "Kayıt başarısız. Lütfen bilgilerinizi kontrol edin.";
+                TempData["Warning"] = "Registration failed. Please check your information.";
                 return View(receivedUser);
             }
         }

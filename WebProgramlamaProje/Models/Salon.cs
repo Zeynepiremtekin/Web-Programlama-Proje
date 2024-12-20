@@ -5,23 +5,25 @@ namespace WebProgramlamaProje.Models
     public class Salon
     {
         [Key]
-        public int SalonId { get; set; } // Birincil Anahtar
+        public int SalonId { get; set; } 
+        [Required(ErrorMessage = "Salon name is required.")]
+        [MaxLength(100, ErrorMessage = "Salon name cannot exceed 100 characters.")]
+        public string Name { get; set; } = string.Empty; 
 
-        [Required(ErrorMessage = "Salon adı gereklidir.")]
-        [MaxLength(100, ErrorMessage = "Salon adı 100 karakterden uzun olamaz.")]
-        public string Name { get; set; } = string.Empty; // Salonun Adı
+        [Required(ErrorMessage = "Address is required.")]
+        [MaxLength(200, ErrorMessage = "Address cannot exceed 200 characters.")]
+        public string Address { get; set; } = string.Empty; 
 
-        [Required(ErrorMessage = "Adres gereklidir.")]
-        [MaxLength(200, ErrorMessage = "Adres 200 karakterden uzun olamaz.")]
-        public string Address { get; set; } = string.Empty; // Salonun Adresi
+        [Required(ErrorMessage = "Phone number is required.")]
+        [MaxLength(20, ErrorMessage = "Phone number cannot exceed 20 characters.")]
+        public string PhoneNumber { get; set; } = string.Empty; 
 
-        [Required(ErrorMessage = "Telefon numarası gereklidir.")]
-        [MaxLength(20, ErrorMessage = "Telefon numarası 20 karakterden uzun olamaz.")]
-        public string PhoneNumber { get; set; } = string.Empty; // Telefon Numarası
-        [Required(ErrorMessage = "Çalışma saatleri gereklidir.")]
-        [MaxLength(50, ErrorMessage = "Çalışma saatleri 50 karakterden uzun olamaz.")]
-        public string WorkingHours { get; set; } // Çalışma Saatleri (Varsayılan değer)
-        public string? ImagePath { get; set; } // Resim Yolu
-        public List<Employee>? Employees { get; set; }
+        [Required(ErrorMessage = "Working hours are required.")]
+        [MaxLength(50, ErrorMessage = "Working hours cannot exceed 50 characters.")]
+        public string WorkingHours { get; set; } 
+
+        public string? ImagePath { get; set; } 
+
+        public List<Employee>? Employees { get; set; } 
     }
 }
