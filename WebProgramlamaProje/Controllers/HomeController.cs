@@ -16,20 +16,34 @@ namespace WebProgramlamaProje.Controllers
 
         public IActionResult Index()
         {
-            // Kullanýcýnýn oturum açýp açmadýðýný kontrol ediyoruz
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.UserFullName = User.Identity.Name; // Kullanýcý adýný ViewBag'e atýyoruz
-            }
-            else
-            {
-                ViewBag.UserFullName = null;
-            }
+            // Check if the user is authenticated
+            ViewBag.UserFullName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
 
-            // Veritabanýndan servisleri alýyoruz
+            // Fetch all services from the database
             var services = _dbContext.Services.ToList();
 
-            // Eðer servis yoksa boþ bir liste gönderiyoruz
+            return View(services);
+        }
+
+        public IActionResult Privacy()
+        {
+            ViewBag.UserFullName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
+            return View();
+        }
+
+        public IActionResult AboutUs()
+        {
+            ViewBag.UserFullName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
+            return View();
+        }
+
+        public IActionResult Services()
+        {
+            ViewBag.UserFullName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
+
+            // Fetch all services for display in cards
+            var services = _dbContext.Services.ToList();
+
             if (services == null || !services.Any())
             {
                 return View(new List<Service>());
@@ -38,64 +52,36 @@ namespace WebProgramlamaProje.Controllers
             return View(services);
         }
 
-        public IActionResult Privacy()
+        public IActionResult ServiceDetails(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            ViewBag.UserFullName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
+
+            // Fetch the specific service details
+            var service = _dbContext.Services.FirstOrDefault(s => s.ServiceId == id);
+
+            if (service == null)
             {
-                ViewBag.UserFullName = User.Identity.Name;
-            }
-            else
-            {
-                ViewBag.UserFullName = null;
+                return NotFound();
             }
 
-            return View();
-        }
-
-        public IActionResult AboutUs()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.UserFullName = User.Identity.Name;
-            }
-            else
-            {
-                ViewBag.UserFullName = null;
-            }
-
-            return View();
+            return View(service);
         }
 
         public IActionResult ContactUs()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.UserFullName = User.Identity.Name;
-            }
-            else
-            {
-                ViewBag.UserFullName = null;
-            }
-
+            ViewBag.UserFullName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
             return View();
         }
 
         public IActionResult Salons()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.UserFullName = User.Identity.Name;
-            }
-            else
-            {
-                ViewBag.UserFullName = null;
-            }
+            ViewBag.UserFullName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
 
+            // Fetch all salons
             var salons = _dbContext.Salons.ToList();
 
             if (salons == null || !salons.Any())
             {
-                // Boþ bir liste gönderiyoruz
                 return View(new List<Salon>());
             }
 
@@ -104,15 +90,7 @@ namespace WebProgramlamaProje.Controllers
 
         public IActionResult Image()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.UserFullName = User.Identity.Name;
-            }
-            else
-            {
-                ViewBag.UserFullName = null;
-            }
-
+            ViewBag.UserFullName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
             return View();
         }
 
@@ -123,4 +101,3 @@ namespace WebProgramlamaProje.Controllers
         }
     }
 }
-
