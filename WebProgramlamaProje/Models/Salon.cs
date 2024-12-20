@@ -18,7 +18,10 @@ namespace WebProgramlamaProje.Models
         [Required(ErrorMessage = "Telefon numarası gereklidir.")]
         [MaxLength(20, ErrorMessage = "Telefon numarası 20 karakterden uzun olamaz.")]
         public string PhoneNumber { get; set; } = string.Empty; // Telefon Numarası
-
+        [Required(ErrorMessage = "Çalışma saatleri gereklidir.")]
+        [MaxLength(50, ErrorMessage = "Çalışma saatleri 50 karakterden uzun olamaz.")]
+        public string WorkingHours { get; set; } // Çalışma Saatleri (Varsayılan değer)
+        public string? ImagePath { get; set; } // Resim Yolu
         public List<Employee>? Employees { get; set; }
     }
 }

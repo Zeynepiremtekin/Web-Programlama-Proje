@@ -72,9 +72,11 @@
     <table class="table table-bordered text-center shadow-lg" style="background-color: #fff; border-radius: 15px; overflow: hidden;">
         <thead style="background-color: #3a3a3a; color: #e8b44b; font-family: cursive;">
             <tr>
-                <th>Salon Name</th>
+                <th>Image</th>
+                <th>Name</th>
                 <th>Address</th>
-                <th>Phone</th>
+                <th>Phone Number</th>
+                <th>Working Hours</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -82,9 +84,20 @@
             @foreach (var salon in Model)
             {
                 <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(salon.ImagePath))
+                        {
+                            <img src="@salon.ImagePath" alt="@salon.Name" style="width: 100px; height: auto;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </td>
                     <td>@salon.Name</td>
                     <td>@salon.Address</td>
                     <td>@salon.PhoneNumber</td>
+                    <td>@salon.WorkingHours</td>
                     <td>
                         <!-- Edit Button -->
                         <a class="btn btn-edit me-2" asp-action="EditSalon" asp-route-id="@salon.SalonId">

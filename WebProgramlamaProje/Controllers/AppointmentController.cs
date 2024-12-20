@@ -20,7 +20,7 @@ namespace WebProgramlamaProje.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewBag.Salons = new SelectList(_dbContext.Salons, "SalonId", "Name");
+            FillDropdownLists();
             return View();
         }
 
@@ -68,6 +68,7 @@ namespace WebProgramlamaProje.Controllers
             if (string.IsNullOrEmpty(userId))
             {
                 ModelState.AddModelError("", "Lütfen giriş yapınız.");
+                FillDropdownLists();
                 return View(appointment);
             }
 
@@ -82,6 +83,7 @@ namespace WebProgramlamaProje.Controllers
             if (employee == null)
             {
                 ModelState.AddModelError("", "Seçilen çalışan bulunamadı.");
+                FillDropdownLists();
                 return View(appointment);
             }
 
@@ -96,6 +98,7 @@ namespace WebProgramlamaProje.Controllers
             if (selectedService == null)
             {
                 ModelState.AddModelError("", "Hizmet bulunamadı.");
+                FillDropdownLists();
                 return View(appointment);
             }
 
@@ -105,6 +108,7 @@ namespace WebProgramlamaProje.Controllers
             if (appointmentTime < workingStart || appointmentEndTime > workingEnd)
             {
                 ModelState.AddModelError("", $"Bu çalışan {employee.WorkingHours} saatleri arasında çalışmaktadır.");
+                FillDropdownLists();
                 return View(appointment);
             }
 
@@ -117,8 +121,11 @@ namespace WebProgramlamaProje.Controllers
             if (isConflict)
             {
                 ModelState.AddModelError("", "Seçilen saat aralığı dolu. Lütfen başka bir zaman seçin.");
+                FillDropdownLists();
+                return View(appointment);
             }
-            else if (ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
                 appointment.IsConfirmed = false; // Onay bekliyor
                 _dbContext.Appointments.Add(appointment);
@@ -126,7 +133,7 @@ namespace WebProgramlamaProje.Controllers
                 return RedirectToAction("MyAppointments");
             }
 
-            ViewBag.Salons = new SelectList(_dbContext.Salons, "SalonId", "Name");
+            FillDropdownLists();
             return View(appointment);
         }
 
@@ -150,6 +157,7 @@ namespace WebProgramlamaProje.Controllers
 
             return View(appointments);
         }
+
         // Admin Randevuları Görüntüleme
         [Authorize(Roles = "Admin")]
         public IActionResult ViewAdminAppointments()
@@ -206,5 +214,9 @@ namespace WebProgramlamaProje.Controllers
             return RedirectToAction("ViewAdminAppointments");
         }
 
+        private void FillDropdownLists()
+        {
+            ViewBag.Salons = new SelectList(_dbContext.Salons, "SalonId", "Name");
+        }
     }
 }

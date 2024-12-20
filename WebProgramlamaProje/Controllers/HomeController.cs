@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using WebProgramlamaProje.Models;
 
@@ -6,18 +7,41 @@ namespace WebProgramlamaProje.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext dbContext)
         {
-            _logger = logger;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
+            // Kullanýcýnýn oturum açýp açmadýðýný kontrol ediyoruz
             if (User.Identity.IsAuthenticated)
             {
-                // Kullan?c? giri? yapt?ysa, Claim'den ad? çekip ViewBag'e at?yoruz
+                ViewBag.UserFullName = User.Identity.Name; // Kullanýcý adýný ViewBag'e atýyoruz
+            }
+            else
+            {
+                ViewBag.UserFullName = null;
+            }
+
+            // Veritabanýndan servisleri alýyoruz
+            var services = _dbContext.Services.ToList();
+
+            // Eðer servis yoksa boþ bir liste gönderiyoruz
+            if (services == null || !services.Any())
+            {
+                return View(new List<Service>());
+            }
+
+            return View(services);
+        }
+
+        public IActionResult Privacy()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
                 ViewBag.UserFullName = User.Identity.Name;
             }
             else
@@ -28,30 +52,69 @@ namespace WebProgramlamaProje.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
         public IActionResult AboutUs()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.UserFullName = User.Identity.Name;
+            }
+            else
+            {
+                ViewBag.UserFullName = null;
+            }
+
             return View();
         }
 
         public IActionResult ContactUs()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.UserFullName = User.Identity.Name;
+            }
+            else
+            {
+                ViewBag.UserFullName = null;
+            }
+
             return View();
         }
 
         public IActionResult Salons()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.UserFullName = User.Identity.Name;
+            }
+            else
+            {
+                ViewBag.UserFullName = null;
+            }
+
+            var salons = _dbContext.Salons.ToList();
+
+            if (salons == null || !salons.Any())
+            {
+                // Boþ bir liste gönderiyoruz
+                return View(new List<Salon>());
+            }
+
+            return View(salons);
         }
 
         public IActionResult Image()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.UserFullName = User.Identity.Name;
+            }
+            else
+            {
+                ViewBag.UserFullName = null;
+            }
+
             return View();
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -60,3 +123,4 @@ namespace WebProgramlamaProje.Controllers
         }
     }
 }
+

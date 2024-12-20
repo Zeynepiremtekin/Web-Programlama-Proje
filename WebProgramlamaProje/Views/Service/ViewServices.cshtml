@@ -71,9 +71,11 @@
     <table class="table table-bordered text-center shadow-lg" style="border-radius: 15px; overflow: hidden; background-color: #fff; font-family: cursive;">
         <thead style="background-color: #3a3a3a; color: #e8b44b;">
             <tr>
-                <th>Service Name</th>
+                <th>Image</th>
+                <th>Name</th>
                 <th>Duration (Minutes)</th>
                 <th>Price (₺)</th>
+                <th>Video</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -81,9 +83,29 @@
             @foreach (var service in Model)
             {
                 <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(service.ImagePath))
+                        {
+                            <img src="@service.ImagePath" alt="@service.Name" style="width: 100px; height: auto;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </td>
                     <td>@service.Name</td>
                     <td>@service.Duration</td>
                     <td>@service.Price</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(service.VideoUrl))
+                        {
+                            <a href="@service.VideoUrl" target="_blank" class="btn btn-link">Watch Video</a>
+                        }
+                        else
+                        {
+                            <span>No Video</span>
+                        }
+                    </td>
                     <td>
                         <!-- Edit Button -->
                         <a asp-action="EditService" asp-route-id="@service.ServiceId" class="btn btn-edit btn-sm me-2">Edit</a>

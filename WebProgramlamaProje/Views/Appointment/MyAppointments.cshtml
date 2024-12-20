@@ -9,6 +9,7 @@
             <th>Çalışan</th>
             <th>Hizmet</th>
             <th>Tarih ve Saat</th>
+            <th>Ücret</th>
             <th>Durum</th>
         </tr>
     </thead>
@@ -19,7 +20,8 @@
                 <td>@appointment.Salon.Name</td>
                 <td>@appointment.Employee.Name @appointment.Employee.Surname</td>
                 <td>@appointment.Service.Name</td>
-                <td>@appointment.AppointmentDateTime.ToString("g")</td>
+                <td>@appointment.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm") - @appointment.AppointmentDateTime.AddMinutes(appointment.Service.Duration).ToString("HH:mm")</td>
+                <td>@string.Format("{0:C}", appointment.Service.Price)</td>
                 <td>
                     @if (appointment.IsConfirmed == true)
                     {

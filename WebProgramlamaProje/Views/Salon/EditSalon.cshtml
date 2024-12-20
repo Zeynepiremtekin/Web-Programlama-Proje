@@ -1,30 +1,52 @@
 ﻿@model WebProgramlamaProje.Models.Salon
 
-<h2>Salon Düzenle</h2>
+@{
+    ViewData["Title"] = "Edit Salon";
+}
 
-<form asp-action="EditSalon" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+<h2>Edit Salon</h2>
 
+<form asp-action="EditSalon" method="post" enctype="multipart/form-data">
+    <!-- Salon ID -->
     <input type="hidden" asp-for="SalonId" />
+    <!-- Mevcut resim yolunu korumak için -->
+    <input type="hidden" asp-for="ImagePath" />
 
     <div class="form-group">
-        <label for="Name">Salon Adı</label>
-        <input asp-for="Name" class="form-control" id="Name" />
+        <label asp-for="Name" class="control-label">Salon Name</label>
+        <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="Address">Adres</label>
-        <input asp-for="Address" class="form-control" id="Address" />
+        <label asp-for="Address" class="control-label">Address</label>
+        <input asp-for="Address" class="form-control" />
         <span asp-validation-for="Address" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="PhoneNumber">Telefon</label>
-        <input asp-for="PhoneNumber" class="form-control" id="PhoneNumber" />
+        <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
+        <input asp-for="PhoneNumber" class="form-control" />
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Kaydet</button>
-    <a class="btn btn-secondary" asp-action="ViewSalons">Geri</a>
+    <div class="form-group">
+        <label asp-for="WorkingHours" class="control-label">Working Hours</label>
+        <input asp-for="WorkingHours" class="form-control" />
+        <span asp-validation-for="WorkingHours" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="imageFile" class="control-label">Change Image</label>
+        <input type="file" name="imageFile" class="form-control" />
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <p>Current Image:</p>
+            <img src="@Model.ImagePath" alt="@Model.Name" style="width: 150px; height: auto;" />
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="ViewSalons" class="btn btn-secondary">Cancel</a>
 </form>
+

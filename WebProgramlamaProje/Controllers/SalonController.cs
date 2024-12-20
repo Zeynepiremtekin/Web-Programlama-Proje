@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebProgramlamaProje.Models;
+using System.IO;
 
 namespace WebProgramlamaProje.Controllers
 {
@@ -14,27 +15,41 @@ namespace WebProgramlamaProje.Controllers
             _dbContext = dbContext;
         }
 
-        // 1. Salonları Listeleme
+        // Salonları Listeleme
         public IActionResult ViewSalons()
         {
             var salons = _dbContext.Salons.ToList();
+
+            // Null veya boş liste kontrolü
+            if (salons == null || !salons.Any())
+            {
+                ViewBag.Message = "No salons available.";
+                return View(new List<Salon>());
+            }
+
             return View(salons);
         }
 
-        // 2. Yeni Salon Ekleme - GET
+        // Yeni Salon Ekleme - GET
         [HttpGet]
         public IActionResult CreateSalon()
         {
             return View();
         }
 
-        // 3. Yeni Salon Ekleme - POST
+        // Yeni Salon Ekleme - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateSalon(Salon salon)
+        public IActionResult CreateSalon(Salon salon, IFormFile? imageFile)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null)
+                {
+                    string imagePath = SaveImage(imageFile);
+                    salon.ImagePath = imagePath;
+                }
+
                 _dbContext.Salons.Add(salon);
                 _dbContext.SaveChanges();
                 return RedirectToAction("ViewSalons");
@@ -43,25 +58,46 @@ namespace WebProgramlamaProje.Controllers
             return View(salon);
         }
 
-        // 4. Salon Düzenleme - GET
+        // Salon Düzenleme - GET
         [HttpGet]
         public IActionResult EditSalon(int id)
         {
             var salon = _dbContext.Salons.Find(id);
             if (salon == null)
-                return NotFound();
+            {
+                TempData["Error"] = "Salon not found.";
+                return RedirectToAction("ViewSalons");
+            }
 
             return View(salon);
         }
 
-        // 5. Salon Düzenleme - POST
+        // Salon Düzenleme - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditSalon(Salon salon)
+        public IActionResult EditSalon(Salon salon, IFormFile? imageFile)
         {
-            if (ModelState.IsValid)
+            // Mevcut salonu bul
+            var existingSalon = _dbContext.Salons.Find(salon.SalonId);
+
+            if (existingSalon != null)
             {
-                _dbContext.Salons.Update(salon);
+                // Temel bilgileri güncelle
+                existingSalon.Name = salon.Name;
+                existingSalon.Address = salon.Address;
+                existingSalon.PhoneNumber = salon.PhoneNumber;
+                existingSalon.WorkingHours = salon.WorkingHours;
+
+                // Eğer yeni bir resim seçilmişse işle
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    string newImagePath = SaveImage(imageFile); // Yeni resmi kaydet
+                    existingSalon.ImagePath = newImagePath;     // Yeni yol veritabanında güncellensin
+                }
+                // Eğer yeni resim seçilmediyse mevcut resim korunur
+
+                // Veritabanını güncelle
+                _dbContext.Salons.Update(existingSalon);
                 _dbContext.SaveChanges();
                 return RedirectToAction("ViewSalons");
             }
@@ -69,24 +105,48 @@ namespace WebProgramlamaProje.Controllers
             return View(salon);
         }
 
-        // 6. Salon Silme
-        [HttpPost]
-        public IActionResult DeleteSalon(int id)
+        // Resim Kaydetme Metodu
+        private string SaveImage(IFormFile imageFile)
         {
-            var employees = _dbContext.Employees.Where(e => e.SalonId == id).ToList();
-            if (employees.Any())
+            try
             {
-                _dbContext.Employees.RemoveRange(employees);
-            }
+                // "wwwroot/images" klasörünü belirle
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder); // Klasör yoksa oluştur
+                }
 
-            var salon = _dbContext.Salons.Find(id);
-            if (salon != null)
+                // Orijinal dosya adını al
+                var fileName = Path.GetFileName(imageFile.FileName);
+
+                // Dosya adının çakışmasını önlemek için kontrol et
+                var filePath = Path.Combine(uploadsFolder, fileName);
+                int count = 1;
+                while (System.IO.File.Exists(filePath)) // Eğer aynı isimde dosya varsa
+                {
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+                    var extension = Path.GetExtension(fileName);
+                    fileName = $"{fileNameWithoutExtension}_{count}{extension}"; // Yeni bir isim oluştur (örneğin: "image_1.png")
+                    filePath = Path.Combine(uploadsFolder, fileName);
+                    count++;
+                }
+
+                // Dosyayı belirlenen yola kaydet
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    imageFile.CopyTo(fileStream);
+                }
+
+                // Dosya yolu olarak "/images" alt klasörünü döndür
+                return "/images/" + fileName;
+            }
+            catch (Exception ex)
             {
-                _dbContext.Salons.Remove(salon);
-                _dbContext.SaveChanges();
+                // Hata durumunda varsayılan bir resim döndür
+                return "/images/default.png";
             }
-
-            return RedirectToAction("ViewSalons");
         }
+
     }
 }

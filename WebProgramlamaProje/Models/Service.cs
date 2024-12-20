@@ -17,6 +17,9 @@ namespace WebProgramlamaProje.Models
         [Required(ErrorMessage = "Fiyat zorunludur.")]
         [Range(0, 10000, ErrorMessage = "Fiyat 0 ile 10000 arasında olmalıdır.")]
         public decimal Price { get; set; } // Fiyat
+        public string? ImagePath { get; set; } // Resim Yolu
+        public string? VideoUrl { get; set; } // 
+        public string? Description { get; set; } // Hizmet Açıklaması
         public List<Employee> Employees { get; set; } = new List<Employee>();
     }
 }
