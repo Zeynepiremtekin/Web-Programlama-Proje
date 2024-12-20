@@ -1,27 +1,26 @@
 ﻿@section Scripts {
     <script>
         $(document).ready(function () {
-            let userData = {}; // Kullanıcı bilgilerini saklayacak bir değişken
+            let userData = {}; // To store user data
 
-            // Kullanıcı bilgilerini yükle
+            // Load user data
             $.ajax({
                 url: "/api/ApiUser/profile",
                 type: "GET",
                 success: function (data) {
-                    userData = data; // API'den gelen bilgileri sakla
+                    userData = data; // Store data from API
                     $("#name").val(data.name);
                     $("#surname").val(data.surname);
                     $("#email").val(data.email);
-                    $("#password").val(data.password); // Şifreyi de doldur
+                    $("#password").val(data.password); // Fill the password field
                 },
                 error: function () {
-                    alert("Kullanıcı bilgileri yüklenirken bir hata oluştu.");
+                    alert("An error occurred while loading user information.");
                 }
             });
 
-            // Bilgileri güncelle
+            // Update user data
             $("#update-profile-btn").click(function () {
-                // userData içerisindeki bilgileri güncelle
                 userData.name = $("#name").val();
                 userData.surname = $("#surname").val();
                 userData.email = $("#email").val();
@@ -33,26 +32,26 @@
                     contentType: "application/json",
                     data: JSON.stringify(userData),
                     success: function () {
-                        alert("Bilgiler başarıyla güncellendi.");
+                        alert("Your information has been successfully updated.");
                     },
                     error: function () {
-                        alert("Bilgiler güncellenirken bir hata oluştu.");
+                        alert("An error occurred while updating your information.");
                     }
                 });
             });
 
-            // Hesabı sil
+            // Delete account
             $("#delete-account-btn").click(function () {
-                if (confirm("Hesabınızı silmek istediğinizden emin misiniz?")) {
+                if (confirm("Are you sure you want to delete your account?")) {
                     $.ajax({
                         url: "/api/ApiUser/profile",
                         type: "DELETE",
                         success: function () {
-                            alert("Hesabınız başarıyla silindi. Ana sayfaya yönlendiriliyorsunuz.");
+                            alert("Your account has been successfully deleted. Redirecting to the homepage.");
                             window.location.href = "/";
                         },
                         error: function () {
-                            alert("Hesap silinirken bir hata oluştu.");
+                            alert("An error occurred while deleting your account.");
                         }
                     });
                 }
@@ -61,30 +60,101 @@
     </script>
 }
 
-<h2>Kullanıcı Profili</h2>
+<style>
+    .page-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+        margin-bottom: 20px;
+        margin-top: 50px;
+        text-align: center;
+        font-family: cursive;
+    }
 
-<div id="profile-container">
+    /* Form Styling */
+    .form-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: cursive;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        color: #3a3a3a;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #000;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+            outline: none;
+        }
+
+    .btn-primary {
+        background-color: #e8b44b;
+        color: #1a1a1a;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #1a1a1a;
+            color: #e8b44b;
+        }
+
+    .btn-danger {
+        background-color: #ff4c4c;
+        color: #fff;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        border: none;
+        outline: none;
+    }
+
+        .btn-danger:hover {
+            background-color: #d11a2a;
+        }
+</style>
+
+<h2 class="page-title">User Profile</h2>
+
+<div class="form-container">
     <form id="update-profile-form">
-        <div class="form-group">
-            <label for="name">Ad:</label>
+        <div class="form-group mb-3">
+            <label for="name">First Name</label>
             <input type="text" id="name" class="form-control" required />
         </div>
-        <div class="form-group">
-            <label for="surname">Soyad:</label>
+
+        <div class="form-group mb-3">
+            <label for="surname">Last Name</label>
             <input type="text" id="surname" class="form-control" required />
         </div>
-        <div class="form-group">
-            <label for="email">E-posta:</label>
+
+        <div class="form-group mb-3">
+            <label for="email">Email</label>
             <input type="email" id="email" class="form-control" required />
         </div>
-        <div class="form-group">
-            <label for="password">Şifre:</label>
+
+        <div class="form-group mb-3">
+            <label for="password">Password</label>
             <input type="password" id="password" class="form-control" required />
         </div>
-        <button type="button" id="update-profile-btn" class="btn btn-primary">Bilgileri Güncelle</button>
+
+        <div class="text-center mt-4">
+            <button type="button" id="update-profile-btn" class="btn btn-primary px-4 py-2 me-3">Update Profile</button>
+            <button type="button" id="delete-account-btn" class="btn btn-danger px-4 py-2">Delete Account</button>
+        </div>
     </form>
-
-    <hr />
-
-    <button type="button" id="delete-account-btn" class="btn btn-danger">Hesabı Sil</button>
 </div>

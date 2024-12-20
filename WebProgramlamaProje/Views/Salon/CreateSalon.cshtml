@@ -1,36 +1,117 @@
 ﻿@model WebProgramlamaProje.Models.Salon
 
-@{
-    ViewData["Title"] = "Create Salon";
-}
+<style>
+    /* Form Title */
+    .form-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+        margin-bottom: 20px;
+        margin-top: 50px;
+        text-align: center;
+    }
 
-<h2>Create New Salon</h2>
+    /* Form Styling */
+    .form-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: cursive;
+    }
 
-<form asp-action="CreateSalon" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Salon Name</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Address" class="control-label">Address</label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="WorkingHours" class="control-label">Working Hours</label>
-        <input asp-for="WorkingHours" class="form-control" placeholder="e.g., 09:00 - 18:00" />
-        <span asp-validation-for="WorkingHours" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label for="imageFile" class="control-label">Salon Image</label>
-        <input type="file" name="imageFile" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-    <a asp-action="ViewSalons" class="btn btn-secondary">Cancel</a>
-</form>
+    .form-group label {
+        color: #3a3a3a;
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        /* Focused Input */
+        .form-control:focus {
+            border-color: #000; /* Siyah kenar */
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); /* Hafif siyah gölge */
+            outline: none;
+        }
+
+    .btn-primary {
+        background-color: #e8b44b;
+        color: #1a1a1a;
+        border-radius: 20px;
+        border: none;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background-color: #1a1a1a;
+            color: #e8b44b;
+        }
+
+    .btn-secondary {
+        background-color: #f8f9fa;
+        color: #1a1a1a;
+        border-radius: 20px;
+        border: 1px solid #1a1a1a;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-secondary:hover {
+            background-color: #1a1a1a;
+            color: #f8f9fa;
+        }
+</style>
+
+<h2 class="form-title">Create New Salon</h2>
+
+<div class="container form-container">
+    <form asp-action="CreateSalon" enctype="multipart/form-data">
+        <!-- Salon Name -->
+        <div class="form-group mb-3">
+            <label asp-for="Name">Salon Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group mb-3">
+            <label asp-for="Address">Address</label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group mb-3">
+            <label asp-for="PhoneNumber">Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <!-- Working Hours -->
+        <div class="form-group mb-3">
+            <label asp-for="WorkingHours">Working Hours</label>
+            <input asp-for="WorkingHours" class="form-control" placeholder="e.g., 09:00 - 18:00" />
+            <span asp-validation-for="WorkingHours" class="text-danger"></span>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group mb-3">
+            <label for="imageFile">Salon Image</label>
+            <input type="file" name="imageFile" class="form-control" />
+        </div>
+
+        <!-- Buttons -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary px-4 py-2">Create</button>
+            <a asp-action="ViewSalons" class="btn btn-secondary px-4 py-2">Cancel</a>
+        </div>
+    </form>
+</div>
+

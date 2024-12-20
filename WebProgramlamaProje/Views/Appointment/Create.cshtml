@@ -1,53 +1,127 @@
 ﻿@model WebProgramlamaProje.Models.Appointment
 
-@{
-    ViewData["Title"] = "Randevu Oluştur";
-}
+<style>
+    .page-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+        margin-bottom: 20px;
+        margin-top: 50px;
+        text-align: center;
+        font-family: cursive;
+    }
 
-<h2>Randevu Oluştur</h2>
+    /* Form Styling */
+    .form-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: cursive;
+    }
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label>Salon Seçin</label>
-        <select id="salonSelect" asp-for="SalonId" class="form-control" asp-items="ViewBag.Salons">
-            <option value="">Salon Seçin</option>
-        </select>
+    .form-group label {
+        font-weight: bold;
+        color: #3a3a3a;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #000;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+            outline: none;
+        }
+
+    .btn-primary {
+        background-color: #e8b44b;
+        color: #1a1a1a;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #1a1a1a;
+            color: #e8b44b;
+        }
+
+    .btn-secondary {
+        background-color: #f8f9fa;
+        color: #1a1a1a;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        border: 1px solid #1a1a1a;
+    }
+
+        .btn-secondary:hover {
+            background-color: #1a1a1a;
+            color: #f8f9fa;
+        }
+
+    .text-danger {
+        color: #dc3545;
+        font-weight: bold;
+    }
+</style>
+
+<h2 class="page-title">Create Appointment</h2>
+
+<div class="container form-container">
+    <form asp-action="Create" method="post">
+        <div class="form-group mb-3">
+            <label for="salonSelect">Select Salon</label>
+            <select id="salonSelect" asp-for="SalonId" class="form-control" asp-items="ViewBag.Salons">
+                <option value="">Select Salon</option>
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="employeeSelect">Select Employee</label>
+            <select id="employeeSelect" asp-for="EmployeeId" class="form-control">
+                <option value="">Select Employee</option>
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="serviceSelect">Select Service</label>
+            <select id="serviceSelect" asp-for="ServiceId" class="form-control">
+                <option value="">Select Service</option>
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="AppointmentDateTime">Appointment Date and Time</label>
+            <input asp-for="AppointmentDateTime" type="datetime-local" class="form-control" required />
+            <span asp-validation-for="AppointmentDateTime" class="text-danger"></span>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary px-4 py-2">Save Appointment</button>
+            <a asp-action="Index" class="btn btn-secondary px-4 py-2">Cancel</a>
+        </div>
+    </form>
+
+    <div class="text-danger mt-3">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     </div>
-
-    <div class="form-group">
-        <label>Çalışan Seçin</label>
-        <select id="employeeSelect" asp-for="EmployeeId" class="form-control">
-            <option value="">Çalışan Seçin</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Hizmet Seçin</label>
-        <select id="serviceSelect" asp-for="ServiceId" class="form-control">
-            <option value="">Hizmet Seçin</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Randevu Tarihi ve Saati</label>
-        <input asp-for="AppointmentDateTime" type="datetime-local" class="form-control" required />
-        <span asp-validation-for="AppointmentDateTime" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Randevu Kaydet</button>
-</form>
-
-<div class="text-danger">
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 </div>
 
 @section Scripts {
     <script>
-        // Salon seçimi yapıldığında çalışanları getir
+        // Load employees when a salon is selected
         $('#salonSelect').change(function () {
             var salonId = $(this).val();
-            $('#employeeSelect').empty().append('<option value="">Çalışan Seçin</option>');
-            $('#serviceSelect').empty().append('<option value="">Hizmet Seçin</option>');
+            $('#employeeSelect').empty().append('<option value="">Select Employee</option>');
+            $('#serviceSelect').empty().append('<option value="">Select Service</option>');
 
             if (salonId) {
                 $.getJSON('/Appointment/GetEmployees', { salonId: salonId }, function (data) {
@@ -58,10 +132,10 @@
             }
         });
 
-        // Çalışan seçimi yapıldığında hizmetleri getir
+        // Load services when an employee is selected
         $('#employeeSelect').change(function () {
             var employeeId = $(this).val();
-            $('#serviceSelect').empty().append('<option value="">Hizmet Seçin</option>');
+            $('#serviceSelect').empty().append('<option value="">Select Service</option>');
 
             if (employeeId) {
                 $.getJSON('/Appointment/GetServices', { employeeId: employeeId }, function (data) {
@@ -73,3 +147,4 @@
         });
     </script>
 }
+

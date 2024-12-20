@@ -1,47 +1,140 @@
-﻿@model List<WebProgramlamaProje.Models.Appointment>
+﻿@model IEnumerable<WebProgramlamaProje.Models.Appointment>
 
-@{
-    ViewData["Title"] = "Randevu Yönetimi";
-}
+<style>
+    .section-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+        margin-top: 50px;
+        text-align: center;
+        font-family: cursive;
+    }
 
-<h2>Randevuları Yönet</h2>
+    .table-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: cursive;
+    }
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Kullanıcı</th>
-            <th>Salon</th>
-            <th>Çalışan</th>
-            <th>Hizmet</th>
-            <th>Tarih ve Saat</th>
-            <th>Durum</th>
-            <th>İşlemler</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var appointment in Model)
-        {
-            <tr>
-                <td>@appointment.User.Name</td>
-                <td>@appointment.Salon.Name</td>
-                <td>@appointment.Employee.Name @appointment.Employee.Surname</td>
-                <td>@appointment.Service.Name</td>
-                <td>@appointment.AppointmentDateTime.ToString("g")</td>
-                <td>@(appointment.IsConfirmed ? "Onaylandı" : "Onay Bekliyor")</td>
-                <td>
-                    <form asp-action="Confirm" asp-route-id="@appointment.AppointmentId" method="post" style="display:inline-block;">
-                        <button type="submit" class="btn btn-success btn-sm">Onayla</button>
-                    </form>
+    .table {
+        margin: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        text-align: center;
+        font-family: cursive;
+        border-radius: 15px;
+        overflow: hidden;
+    }
 
-                    <form asp-action="Reject" asp-route-id="@appointment.AppointmentId" method="post" style="display:inline-block;">
-                        <button type="submit" class="btn btn-warning btn-sm">Onaylama</button>
-                    </form>
-
-                    <form asp-action="Delete" asp-route-id="@appointment.AppointmentId" method="post" style="display:inline-block;">
-                        <button type="submit" class="btn btn-danger btn-sm">Sil</button>
-                    </form>
-                </td>
-            </tr>
+        .table thead {
+            background-color: #3a3a3a;
+            color: #e8b44b;
         }
-    </tbody>
-</table>
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table tbody tr:hover {
+            background-color: transparent;
+        }
+
+        .table th, .table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+    .btn {
+        border-radius: 20px;
+        font-family: cursive;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        padding: 5px 15px;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #1a1a1a;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+</style>
+
+<h2 class="section-title">Manage Appointments</h2>
+
+<div class="container table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Salon</th>
+                <th>Employee</th>
+                <th>Service</th>
+                <th>Date and Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.User.Name</td>
+                    <td>@appointment.Salon.Name</td>
+                    <td>@appointment.Employee.Name @appointment.Employee.Surname</td>
+                    <td>@appointment.Service.Name</td>
+                    <td>@appointment.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        @if (appointment.IsConfirmed)
+                        {
+                            <span class="text-success">Confirmed</span>
+                        }
+                        else
+                        {
+                            <span class="text-warning">Pending</span>
+                        }
+                    </td>
+                    <td>
+                        <form asp-action="Confirm" asp-route-id="@appointment.AppointmentId" method="post" style="display:inline-block;">
+                            <button type="submit" class="btn btn-success btn-sm">Confirm</button>
+                        </form>
+
+                        <form asp-action="Reject" asp-route-id="@appointment.AppointmentId" method="post" style="display:inline-block;">
+                            <button type="submit" class="btn btn-warning btn-sm">Reject</button>
+                        </form>
+
+                        <form asp-action="Delete" asp-route-id="@appointment.AppointmentId" method="post" style="display:inline-block;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

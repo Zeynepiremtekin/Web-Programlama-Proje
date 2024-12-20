@@ -1,60 +1,156 @@
 ﻿@model WebProgramlamaProje.Models.Employee
 
-<h2>Çalışanı Düzenle</h2>
+<style>
+    /* Form Title */
+    .form-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+        margin-bottom: 20px;
+        margin-top: 50px;
+        text-align: center;
+    }
 
-<form asp-action="EditEmployee" method="post">
-    <!-- Gizli alan: EmployeeId -->
-    <input type="hidden" asp-for="EmployeeId" />
+    /* Form Styling */
+    .form-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: cursive;
+    }
 
-    <!-- Adı -->
-    <div class="form-group">
-        <label>Adı</label>
-        <input asp-for="Name" class="form-control" />
-    </div>
+    .form-group label {
+        color: #3a3a3a;
+        font-weight: bold;
+    }
 
-    <!-- Soyadı -->
-    <div class="form-group">
-        <label>Soyadı</label>
-        <input asp-for="Surname" class="form-control" />
-    </div>
+    .form-control {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-    <!-- Salon -->
-    <div class="form-group">
-        <label>Salon</label>
-        <select asp-for="SalonId" asp-items="ViewBag.SalonList" class="form-control"></select>
-    </div>
+        /* Focused Input */
+        .form-control:focus {
+            border-color: #000; /* Black border */
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); /* Black shadow */
+            outline: none;
+        }
 
-    <!-- Hizmetler -->
-    <div class="form-group">
-        <label>Hizmetler</label>
-        <div>
-            @foreach (var service in ViewBag.ServiceList)
-            {
-                <!-- Seçili hizmetleri kontrol et -->
-                bool isSelected = Model.Services != null && Model.Services.Any(s => s.ServiceId.ToString() == service.Value);
+    .checkbox-group {
+        padding-left: 10px;
+    }
 
-                <div class="form-check">
-                    <input type="checkbox"
-                           name="selectedServices"
-                           value="@service.Value"
-                           class="form-check-input"
-                           id="service_@service.Value"
-                    @(isSelected ? "checked" : "") />
+    .form-check-input:checked {
+        background-color: #e8b44b;
+        border-color: #e8b44b;
+    }
 
-                    <label class="form-check-label" for="service_@service.Value">
-                        @service.Text
-                    </label>
-                </div>
-            }
+    .form-check-input:focus {
+        outline: none;
+        box-shadow: 0 0 5px #e8b44b;
+    }
+
+    .form-check-label {
+        font-weight: bold;
+        color: #3a3a3a;
+    }
+
+    .btn-primary {
+        background-color: #e8b44b;
+        color: #1a1a1a;
+        border-radius: 20px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        border: none; /* Remove border */
+        outline: none; /* Remove focus outline */
+    }
+
+        .btn-primary:hover {
+            background-color: #1a1a1a;
+            color: #e8b44b;
+        }
+
+    .btn-secondary {
+        background-color: #f8f9fa;
+        color: #1a1a1a;
+        border-radius: 20px;
+        border: 1px solid #1a1a1a;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-secondary:hover {
+            background-color: #1a1a1a;
+            color: #f8f9fa;
+        }
+</style>
+
+<h2 class="form-title">Edit Employee</h2>
+
+<div class="container form-container">
+    <form asp-action="EditEmployee" method="post">
+        <!-- Hidden Field: EmployeeId -->
+        <input type="hidden" asp-for="EmployeeId" />
+
+        <!-- Name -->
+        <div class="form-group mb-3">
+            <label>First Name</label>
+            <input asp-for="Name" class="form-control" />
         </div>
-    </div>
-    <div class="form-group">
-        <label>Çalışma Saatleri</label>
-        <input asp-for="WorkingHours" class="form-control" placeholder="Örn: 09:00 - 18:00" />
-        <span asp-validation-for="WorkingHours" class="text-danger"></span>
-    </div>
 
+        <!-- Surname -->
+        <div class="form-group mb-3">
+            <label>Last Name</label>
+            <input asp-for="Surname" class="form-control" />
+        </div>
 
-    <!-- Güncelle Butonu -->
-    <button type="submit" class="btn btn-primary">Güncelle</button>
-</form>
+        <!-- Salon -->
+        <div class="form-group mb-3">
+            <label>Salon</label>
+            <select asp-for="SalonId" asp-items="ViewBag.SalonList" class="form-control"></select>
+        </div>
+
+        <!-- Services -->
+        <div class="form-group mb-3">
+            <label>Services</label>
+            <div class="checkbox-group">
+                @foreach (var service in ViewBag.ServiceList)
+                {
+                    <!-- Check if the service is already selected -->
+                    bool isSelected = Model.Services != null && Model.Services.Any(s => s.ServiceId.ToString() == service.Value);
+
+                    <div class="form-check">
+                        <input type="checkbox"
+                               name="selectedServices"
+                               value="@service.Value"
+                               class="form-check-input"
+                               id="service_@service.Value"
+                        @(isSelected ? "checked" : "") />
+
+                        <label class="form-check-label" for="service_@service.Value">
+                            @service.Text
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Working Hours -->
+        <div class="form-group mb-3">
+            <label>Working Hours</label>
+            <input asp-for="WorkingHours" class="form-control" placeholder="e.g., 09:00 - 18:00" />
+            <span asp-validation-for="WorkingHours" class="text-danger"></span>
+        </div>
+
+        <!-- Update and Cancel Buttons -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary px-4 py-2">Update</button>
+            <a asp-action="ViewEmployees" class="btn btn-secondary px-4 py-2">Cancel</a>
+        </div>
+    </form>
+</div>
+

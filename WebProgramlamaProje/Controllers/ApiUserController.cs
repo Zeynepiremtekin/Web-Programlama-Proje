@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebProgramlamaProje.Models;
@@ -82,10 +83,15 @@ namespace WebProgramlamaProje.Controllers
             if (user == null)
                 return NotFound();
 
+            // Kullanıcıyı veritabanından sil
             _dbContext.Users.Remove(user);
             await _dbContext.SaveChangesAsync();
 
-            return Ok(new { message = "Hesabınız başarıyla silindi." });
+            // Oturumu kapat
+            await HttpContext.SignOutAsync();
+
+            return Ok(new { message = "Your account has been successfully deleted." });
         }
+
     }
 }

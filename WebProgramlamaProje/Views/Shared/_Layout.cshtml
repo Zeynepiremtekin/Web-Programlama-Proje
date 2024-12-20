@@ -24,18 +24,20 @@
         main {
             flex: 1; /* Sayfa içeriği kalan alanı kaplar */
             padding: 20px;
+            padding-top: 80px;
         }
 
 
         /* navbar genel tasarımı */
         .navbar {
-            background: linear-gradient(90deg, black, #3a3a3a); 
-            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5); 
-            width: 100%; 
-            z-index: 1000; 
-
-
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(90deg, black, #3a3a3a);
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
         }
+
 
         /* logo tasarımı */
         .navbar-brand {
@@ -291,6 +293,7 @@
                                     {
                                         <li>
                                             <a class="dropdown-item custom-dropdown-item" style="color: #e8b44b;" onmouseover="this.style.color='black';" onmouseout="this.style.color='#e8b44b';" asp-action="UserProfile" asp-controller="User">User Profile</a>
+                                            <a class="dropdown-item custom-dropdown-item" style="color: #e8b44b;" onmouseover="this.style.color='black';" onmouseout="this.style.color='#e8b44b';" asp-action="MyAppointments" asp-controller="Appointment">My Appointments</a>
                                         </li>
                                     }
 

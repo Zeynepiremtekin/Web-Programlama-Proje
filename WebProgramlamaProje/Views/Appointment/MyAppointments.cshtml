@@ -1,16 +1,77 @@
 ﻿@model List<WebProgramlamaProje.Models.Appointment>
 
-<h2>Randevularım</h2>
+<style>
+    /* Page Title */
+    .page-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+        margin-bottom: 20px;
+        margin-top: 50px;
+        text-align: center;
+    }
 
-<table class="table">
+    /* Table Styling */
+    .appointments-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 1rem;
+        text-align: left;
+        font-family: cursive;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+        .appointments-table th {
+            background-color: #3a3a3a;
+            color: #e8b44b;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .appointments-table td {
+            text-align: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .appointments-table tr:hover {
+            background-color: #f2f2f2;
+        }
+
+    /* Status Labels */
+    .status-approved {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .status-rejected {
+        color: #dc3545;
+        font-weight: bold;
+    }
+
+    .status-pending {
+        color: #ffc107;
+        font-weight: bold;
+    }
+</style>
+
+<h2 class="page-title">My Appointments</h2>
+
+<table class="appointments-table">
     <thead>
         <tr>
             <th>Salon</th>
-            <th>Çalışan</th>
-            <th>Hizmet</th>
-            <th>Tarih ve Saat</th>
-            <th>Ücret</th>
-            <th>Durum</th>
+            <th>Employee</th>
+            <th>Service</th>
+            <th>Date and Time</th>
+            <th>Price</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -25,18 +86,19 @@
                 <td>
                     @if (appointment.IsConfirmed == true)
                     {
-                        <span class="text-success">Onaylandı</span>
+                        <span class="status-approved">Approved</span>
                     }
                     else if (appointment.IsConfirmed == false)
                     {
-                        <span class="text-danger">Onay Verilmedi</span>
+                        <span class="status-rejected">Rejected</span>
                     }
                     else
                     {
-                        <span class="text-warning">Onay Bekliyor</span>
+                        <span class="status-pending">Pending</span>
                     }
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
