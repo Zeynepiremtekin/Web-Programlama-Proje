@@ -1,0 +1,24 @@
+﻿@model IEnumerable<WebProgramlamaProje.Models.ContactMessage>
+
+<h2>Contact Messages</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var message in Model)
+        {
+            <tr>
+                <td>@message.Name</td>
+                <td>@message.Email</td>
+                <td>@message.Message</td>
+                <td>@message.CreatedAt.ToString("g")</td>
+            </tr>
+        }
+    </tbody>
+</table>

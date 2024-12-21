@@ -19,6 +19,10 @@ namespace WebProgramlamaProje.Controllers
         {
             return View();
         }
-
+        public IActionResult ContactMessages()
+        {
+            var messages = _dbContext.ContactMessages.OrderByDescending(m => m.CreatedAt).ToList();
+            return View(messages);
+        }
     }
 }
