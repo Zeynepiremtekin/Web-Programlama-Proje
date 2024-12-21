@@ -81,6 +81,13 @@ namespace WebProgramlamaProje.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddEmployee(Employee employee, List<int> selectedServices)
         {
+            var salon = _dbContext.Salons.Find(employee.SalonId);
+
+            if (salon != null && !IsWorkingHoursValid(employee.WorkingHours, salon.WorkingHours))
+            {
+                ModelState.AddModelError("WorkingHours", $"Working hours must be within the salon's hours: {salon.WorkingHours}");
+            }
+
             if (ModelState.IsValid)
             {
                 employee.Services = _dbContext.Services
@@ -109,6 +116,24 @@ namespace WebProgramlamaProje.Controllers
 
             return View(employee);
         }
+        private bool IsWorkingHoursValid(string employeeHours, string salonHours)
+        {
+            var employeeTimes = employeeHours.Split('-');
+            var salonTimes = salonHours.Split('-');
+
+            if (employeeTimes.Length == 2 && salonTimes.Length == 2)
+            {
+                var employeeStart = TimeSpan.Parse(employeeTimes[0].Trim());
+                var employeeEnd = TimeSpan.Parse(employeeTimes[1].Trim());
+                var salonStart = TimeSpan.Parse(salonTimes[0].Trim());
+                var salonEnd = TimeSpan.Parse(salonTimes[1].Trim());
+
+                return employeeStart >= salonStart && employeeEnd <= salonEnd;
+            }
+
+            return false;
+        }
+
 
         [HttpGet]
         public IActionResult EditEmployee(int id)
@@ -141,16 +166,23 @@ namespace WebProgramlamaProje.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditEmployee(Employee employee, List<int> selectedServices)
         {
+            var salon = _dbContext.Salons.Find(employee.SalonId);
+
+            if (salon != null && !IsWorkingHoursValid(employee.WorkingHours, salon.WorkingHours))
+            {
+                ModelState.AddModelError("WorkingHours", $"Working hours must be within the salon's hours: {salon.WorkingHours}");
+            }
+
             var existingEmployee = _dbContext.Employees
                 .Include(e => e.Services)
                 .FirstOrDefault(e => e.EmployeeId == employee.EmployeeId);
 
-            if (existingEmployee != null)
+            if (existingEmployee != null && ModelState.IsValid)
             {
                 existingEmployee.Name = employee.Name;
                 existingEmployee.Surname = employee.Surname;
                 existingEmployee.SalonId = employee.SalonId;
-                existingEmployee.WorkingHours = employee.WorkingHours; // Çalışma saatlerini güncelle
+                existingEmployee.WorkingHours = employee.WorkingHours;
 
                 existingEmployee.Services.Clear();
                 existingEmployee.Services = _dbContext.Services
@@ -177,6 +209,7 @@ namespace WebProgramlamaProje.Controllers
 
             return View(employee);
         }
+
 
         [HttpPost]
         public IActionResult DeleteEmployee(int id)
