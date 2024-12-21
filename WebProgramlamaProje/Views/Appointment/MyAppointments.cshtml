@@ -1,104 +1,115 @@
-﻿@model List<WebProgramlamaProje.Models.Appointment>
+﻿@model IEnumerable<WebProgramlamaProje.Models.Appointment>
 
 <style>
-    /* Page Title */
-    .page-title {
+    /* Section Title */
+    .section-title {
         color: #e8b44b;
         font-weight: bold;
         border-radius: 30px;
         padding: 10px;
         background: linear-gradient(90deg, black, #3a3a3a);
-        margin-bottom: 20px;
         margin-top: 50px;
         text-align: center;
+        font-family: cursive;
     }
 
     /* Table Styling */
-    .appointments-table {
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
         width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        font-size: 1rem;
-        text-align: left;
+        text-align: center;
         font-family: cursive;
-        background-color: #ffffff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 15px;
         overflow: hidden;
+        margin-top: 30px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-        .appointments-table th {
+        .table thead {
             background-color: #3a3a3a;
             color: #e8b44b;
-            text-align: center;
-            padding: 15px;
         }
 
-        .appointments-table td {
-            text-align: center;
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
+        .table th, .table td {
+            padding: 10px;
+            border: 0.2px solid #eee;
         }
 
-        .appointments-table tr:hover {
-            background-color: #f2f2f2;
-        }
-
-    /* Status Labels */
-    .status-approved {
+    /* Status Styling */
+    .text-success {
         color: #28a745;
         font-weight: bold;
     }
 
-    .status-rejected {
+    .text-danger {
         color: #dc3545;
         font-weight: bold;
     }
 
-    .status-pending {
+    .text-warning {
         color: #ffc107;
+        font-weight: bold;
+    }
+
+    .text-muted {
+        color: #6c757d;
         font-weight: bold;
     }
 </style>
 
-<h2 class="page-title">My Appointments</h2>
+<!-- Sayfa Başlığı -->
+<h2 class="section-title">My Appointments</h2>
 
-<table class="appointments-table">
-    <thead>
-        <tr>
-            <th>Salon</th>
-            <th>Employee</th>
-            <th>Service</th>
-            <th>Date and Time</th>
-            <th>Price</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var appointment in Model)
-        {
+<!-- Appointment Table -->
+<div class="container">
+    <table class="table table-bordered text-center">
+        <thead>
             <tr>
-                <td>@appointment.Salon.Name</td>
-                <td>@appointment.Employee.Name @appointment.Employee.Surname</td>
-                <td>@appointment.Service.Name</td>
-                <td>@appointment.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm") - @appointment.AppointmentDateTime.AddMinutes(appointment.Service.Duration).ToString("HH:mm")</td>
-                <td>@string.Format("{0:C}", appointment.Service.Price)</td>
-                <td>
-                    @if (appointment.IsConfirmed == true)
-                    {
-                        <span class="status-approved">Approved</span>
-                    }
-                    else if (appointment.IsConfirmed == false)
-                    {
-                        <span class="status-rejected">Rejected</span>
-                    }
-                    else
-                    {
-                        <span class="status-pending">Pending</span>
-                    }
-                </td>
+                <th>Salon</th>
+                <th>Employee</th>
+                <th>Service</th>
+                <th>Date & Time</th>
+                <th>Price</th>
+                <th>Status</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.Salon.Name</td>
+                    <td>@appointment.Employee.Name @appointment.Employee.Surname</td>
+                    <td>@appointment.Service.Name</td>
+                    <td>
+                        @appointment.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm")
+                        -
+                        @appointment.AppointmentDateTime.AddMinutes(appointment.Service.Duration).ToString("HH:mm")
+                    </td>
+                    <td>@string.Format("{0:C}", appointment.Service.Price)</td>
+                    <td>
+                        @if (appointment.Status == "Approved")
+                        {
+                            <span class="text-success">Approved</span>
+                        }
+                        else if (appointment.Status == "Rejected")
+                        {
+                            <span class="text-danger">Rejected</span>
+                        }
+                        else if (appointment.Status == "Pending")
+                        {
+                            <span class="text-warning">Pending</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Unknown</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 

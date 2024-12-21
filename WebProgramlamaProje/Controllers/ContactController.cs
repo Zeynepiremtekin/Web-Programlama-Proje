@@ -21,18 +21,26 @@ namespace WebProgramlamaProje.Controllers
                 _dbContext.ContactMessages.Add(contactMessage);
                 _dbContext.SaveChanges();
 
-                // TempData ile başarı mesajını taşırız
-                TempData["Message"] = "Your message has been sent successfully.";
-                TempData["MessageType"] = "success"; // Mesaj türü başarılı
-
                 return RedirectToAction("ContactUs", "Home"); // Aynı sayfaya yönlendir
             }
 
-            // TempData ile hata mesajını taşırız
-            TempData["Message"] = "An error occurred. Please try again.";
-            TempData["MessageType"] = "error"; // Mesaj türü hata
-
             return View("ContactUs", "Home");
         }
+
+        [HttpPost]
+        public IActionResult DeleteMessage(int id)
+        {
+            var message = _dbContext.ContactMessages.Find(id);
+            if (message != null)
+            {
+                _dbContext.ContactMessages.Remove(message);
+                _dbContext.SaveChanges();
+            }
+
+            // Silme işleminden sonra Admin/ContactMessages sayfasına yönlendirme
+            return RedirectToAction("ContactMessages", "Admin");
+        }
+
+
     }
 }

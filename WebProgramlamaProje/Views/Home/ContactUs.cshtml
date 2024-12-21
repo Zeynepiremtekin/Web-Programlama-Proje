@@ -92,40 +92,6 @@
             color:white;
             transform: scale(1.05);
         }
-
-    .toast-container {
-        position: fixed;
-        top: 20px; /* Üstten mesafe */
-        right: 20px; /* Sağdan mesafe */
-        z-index: 1055; /* Toast'un üstte görünmesi için yüksek bir z-index */
-    }
-
-    .toast {
-        opacity: 1; /* Toast'un görünür olması için */
-        transition: opacity 0.5s ease-in-out; /* Açılıp kapanma animasyonu */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Hafif gölge */
-        border-radius: 10px; /* Yuvarlatılmış köşeler */
-    }
-
-        .toast .toast-body {
-            font-family: cursive;
-            font-size: 1rem;
-            font-weight: bold;
-            color: #fff;
-        }
-
-    .text-bg-success {
-        background-color: #28a745 !important; /* Başarı rengi */
-    }
-
-    .text-bg-danger {
-        background-color: #dc3545 !important; /* Hata rengi */
-    }
-
-    .btn-close-white {
-        filter: invert(1); /* Beyaz çarpı butonu */
-    }
-
 </style>
 
 <section id="contact-us" class="py-5">
@@ -178,37 +144,5 @@
         </div>
     </div>
 </section>
-@if (TempData["Message"] != null)
-{
-    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
-        <div class="toast align-items-center text-bg-@(TempData["MessageType"]?.ToString() == "success" ? "success" : "danger") border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
-            <div class="d-flex">
-                <div class="toast-body">
-                    @TempData["Message"]
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
-    </div>
-}
-
-
-@section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var toastEl = document.querySelector('.toast');
-            if (toastEl) {
-                // Bootstrap toast'ı initialize et
-                var toast = new bootstrap.Toast(toastEl, {
-                    autohide: true, // Otomatik gizlenmeyi etkinleştir
-                    delay: 5000 // 5 saniye sonra kapanacak
-                });
-
-                // Toast'u göster
-                toast.show();
-            }
-        });
-    </script>
-}
 
 

@@ -28,6 +28,6 @@ namespace WebProgramlamaProje.Models
         [DataType(DataType.DateTime, ErrorMessage = "Please enter a valid date and time.")]
         public DateTime AppointmentDateTime { get; set; }
 
-        public bool IsConfirmed { get; set; } = false; 
+        public string Status { get; set; } = "Pending";
     }
 }

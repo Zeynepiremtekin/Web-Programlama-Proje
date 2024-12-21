@@ -1,24 +1,108 @@
 ﻿@model IEnumerable<WebProgramlamaProje.Models.ContactMessage>
 
-<h2>Contact Messages</h2>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Message</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
+<style>
+    /* Section Title */
+    .section-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+        margin-bottom: 30px;
+        margin-top: 50px;
+        text-align: center;
+        font-family: cursive;
+    }
+
+    .message-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        position: relative;
+        margin-bottom: 20px;
+        font-family: cursive;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .message-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+    .message-user {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: #e8b44b;
+        font-weight: bold;
+    }
+
+    .message-date {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 0.9rem;
+        color: #777;
+        text-align: right;
+    }
+
+    .message-email {
+        margin-top: 10px;
+        color: #999;
+        font-size: 0.8rem;
+        text-align: left;
+        display: block;
+    }
+
+    .message-content {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .btn-delete {
+        background-color: #ffffff; /* Beyaz arkaplan */
+        color: #1a1a1a; /* Siyah yazı */
+        border-radius: 10px;
+        border: 1px solid #1a1a1a;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-delete:hover {
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+        }
+</style>
+
+<h2 class="section-title">Contact Messages</h2>
+
+<div class="container">
+    <div class="row">
         @foreach (var message in Model)
         {
-            <tr>
-                <td>@message.Name</td>
-                <td>@message.Email</td>
-                <td>@message.Message</td>
-                <td>@message.CreatedAt.ToString("g")</td>
-            </tr>
+            <div class="col-md-6 col-lg-4">
+                <div class="message-card">
+                    <!-- User Name -->
+                    <div class="message-user">@message.Name</div>
+
+                    <!-- Created At -->
+                    <div class="message-date">@message.CreatedAt.ToString("dd.MM.yyyy HH:mm")</div>
+
+                    <!-- User Email -->
+                    <div class="message-email">@message.Email</div>
+
+                    <!-- Message Content -->
+                    <div class="message-content">@message.Message</div>
+
+                    <!-- Delete Button -->
+                    <form asp-controller="Contact" asp-action="DeleteMessage" asp-route-id="@message.Id" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>

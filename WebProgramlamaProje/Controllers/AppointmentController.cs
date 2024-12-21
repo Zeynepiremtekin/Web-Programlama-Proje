@@ -127,13 +127,13 @@ namespace WebProgramlamaProje.Controllers
 
             if (ModelState.IsValid)
             {
-                appointment.IsConfirmed = false; // Onay bekliyor
+                appointment.Status = "Pending"; // Onay bekliyor olarak ayarla
                 _dbContext.Appointments.Add(appointment);
                 _dbContext.SaveChanges();
                 return RedirectToAction("MyAppointments");
             }
 
-            FillDropdownLists();
+            FillDropdownLists(); 
             return View(appointment);
         }
 
@@ -180,7 +180,7 @@ namespace WebProgramlamaProje.Controllers
             var appointment = _dbContext.Appointments.Find(id);
             if (appointment != null)
             {
-                appointment.IsConfirmed = true; // Randevuyu onayla
+                appointment.Status = "Approved"; // Durumu "Approved" olarak ayarla
                 _dbContext.SaveChanges();
             }
             return RedirectToAction("ViewAdminAppointments");
@@ -194,11 +194,13 @@ namespace WebProgramlamaProje.Controllers
             var appointment = _dbContext.Appointments.Find(id);
             if (appointment != null)
             {
-                appointment.IsConfirmed = false; // Onayı kaldır
+                appointment.Status = "Rejected"; // Durumu "Rejected" olarak ayarla
                 _dbContext.SaveChanges();
             }
             return RedirectToAction("ViewAdminAppointments");
         }
+
+
 
         // Admin Randevuyu Silme
         [Authorize(Roles = "Admin")]

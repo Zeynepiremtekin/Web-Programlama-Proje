@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebProgramlamaProje.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241221110455_InitialCreate")]
+    [Migration("20241221195159_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -53,14 +53,15 @@ namespace WebProgramlamaProje.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("bit");
-
                     b.Property<int>("SalonId")
                         .HasColumnType("int");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

@@ -27,10 +27,13 @@ namespace WebProgramlamaProje.Controllers
             var employeeEfficiencies = employees.Select(employee =>
             {
                 var totalWorkingMinutes = CalculateTotalWorkingMinutes(employee.WorkingHours);
+
+                // Yalnızca "Approved" durumundaki randevuların sürelerini topluyoruz.
                 var appointmentsDuration = _dbContext.Appointments
-                    .Where(a => a.EmployeeId == employee.EmployeeId && a.IsConfirmed)
+                    .Where(a => a.EmployeeId == employee.EmployeeId && a.Status == "Approved")
                     .Sum(a => a.Service.Duration);
 
+                // Verimlilik hesabı
                 var efficiency = totalWorkingMinutes > 0 ? (appointmentsDuration / (double)totalWorkingMinutes) * 100 : 0;
 
                 return new
