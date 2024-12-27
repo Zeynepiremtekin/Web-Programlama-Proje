@@ -116,11 +116,13 @@ namespace WebProgramlamaProje.Controllers
             var isConflict = _dbContext.Appointments.Any(a =>
                 a.EmployeeId == appointment.EmployeeId &&
                 a.AppointmentDateTime < appointment.AppointmentDateTime.AddMinutes(selectedService.Duration) &&
-                a.AppointmentDateTime.AddMinutes(a.Service.Duration) > appointment.AppointmentDateTime);
+                a.AppointmentDateTime.AddMinutes(a.Service.Duration) > appointment.AppointmentDateTime &&
+                (a.Status == "Approved" || a.Status == "Pending") // Onaylı ya da pending randevular çakışacak
+            );
 
             if (isConflict)
             {
-                ModelState.AddModelError("", "The selected time range is full. Please choose another time.");
+                ModelState.AddModelError("", "The selected time range is full or unavailable. Please choose another time.");
                 FillDropdownLists();
                 return View(appointment);
             }
@@ -133,7 +135,7 @@ namespace WebProgramlamaProje.Controllers
                 return RedirectToAction("MyAppointments");
             }
 
-            FillDropdownLists(); 
+            FillDropdownLists();
             return View(appointment);
         }
 
@@ -186,7 +188,7 @@ namespace WebProgramlamaProje.Controllers
             return RedirectToAction("ViewAdminAppointments");
         }
 
-        // Admin Randevuyu Onaylamama
+        // Admin Randevuyu Reddetme
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Reject(int id)
