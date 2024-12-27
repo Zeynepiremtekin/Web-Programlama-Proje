@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.3.3" />
+    <PackageReference Include="Google.Cloud.Vision.V1" Version="3.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>

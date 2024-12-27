@@ -252,9 +252,20 @@
                 <!-- Navbar linkleri -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://localhost:7042/Home/AboutUs">About Us</a>
-                        </li> 
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <!-- Kullanıcı Giriş Yapmışsa "Create Appointment" linki -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://localhost:7042/Appointment/Create">Create Appointment</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Giriş Yapmamışsa "About Us" linki -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://localhost:7042/Home/AboutUs">About Us</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link" href="http://localhost:5162/Home/Services">Services</a>
                         </li>
@@ -277,8 +288,7 @@
                                 <a class="nav-link dropdown-toggle" style="color: #e8b44b;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-person-circle" style="font-size: 1.25rem; color: #e8b44b;"></i> @User.Identity.Name
                                 </a>
-
-                                <!-- Dropdown Menüsü -->
+                            <!-- Dropdown Menüsü -->
                                 <ul class="dropdown-menu custom-dropdown-menu">
                                     <!-- Kullanıcı Rolüne Göre Profil Yönlendirme -->
                                     @if (User.IsInRole("Admin"))
