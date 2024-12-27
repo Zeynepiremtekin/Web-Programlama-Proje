@@ -6,7 +6,7 @@ using WebProgramlamaProje.Models;
 
 namespace WebProgramlamaProje.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class EmployeeController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
@@ -16,7 +16,24 @@ namespace WebProgramlamaProje.Controllers
             _dbContext = dbContext;
         }
 
+        // Belirli bir salonun çalışanlarını listele
+        public IActionResult GetEmployeesBySalon(int salonId)
+        {
+            var employees = _dbContext.Employees
+                                      .Include(e => e.Services)  // Çalışanla ilişkili hizmetleri dahil et
+                                      .Where(e => e.SalonId == salonId)
+                                      .ToList();
+
+            if (employees == null || !employees.Any())
+            {
+                return NotFound("No employees found for this salon.");
+            }
+
+            return View(employees);  // Çalışanlar ve hizmetlerle birlikte view'a gönder
+        }
+
         // 1. Çalışanları Listeleme
+        [Authorize(Roles = "Admin")]
         public IActionResult ViewEmployees()
         {
             var employees = _dbContext.Employees
@@ -48,6 +65,7 @@ namespace WebProgramlamaProje.Controllers
             return View(employees);
         }
 
+        [Authorize(Roles = "Admin")]
         private int CalculateTotalWorkingMinutes(string workingHours)
         {
             var hours = workingHours.Split('-');
@@ -61,6 +79,7 @@ namespace WebProgramlamaProje.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddEmployee()
         {
             ViewBag.SalonList = _dbContext.Salons
@@ -82,6 +101,7 @@ namespace WebProgramlamaProje.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddEmployee(Employee employee, List<int> selectedServices)
         {
             var salon = _dbContext.Salons.Find(employee.SalonId);
@@ -119,6 +139,7 @@ namespace WebProgramlamaProje.Controllers
 
             return View(employee);
         }
+        [Authorize(Roles = "Admin")]
         private bool IsWorkingHoursValid(string employeeHours, string salonHours)
         {
             var employeeTimes = employeeHours.Split('-');
@@ -139,6 +160,7 @@ namespace WebProgramlamaProje.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult EditEmployee(int id)
         {
             var employee = _dbContext.Employees
@@ -167,6 +189,7 @@ namespace WebProgramlamaProje.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult EditEmployee(Employee employee, List<int> selectedServices)
         {
             var salon = _dbContext.Salons.Find(employee.SalonId);
@@ -215,6 +238,7 @@ namespace WebProgramlamaProje.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteEmployee(int id)
         {
             var employee = _dbContext.Employees.Find(id);

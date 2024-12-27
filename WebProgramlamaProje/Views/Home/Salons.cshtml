@@ -66,6 +66,27 @@
     .carousel-control-next-icon {
         filter: invert(1);
     }
+    /* View Employees Button */
+    .view-employees-btn {
+        background-color: #000;
+        color: #e8b44b;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 20px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        width: fit-content;
+        margin: 0 auto; /* Center the button horizontally */
+    }
+
+        .view-employees-btn:hover {
+            background-color: #e8b44b;
+            color: #fff;
+        }
+
 </style>
 
 <section id="salon-slider" class="py-5">
@@ -104,6 +125,13 @@
                                     </p>
                                     <p class="card-text"><strong>Opening Hours:</strong> @salon.WorkingHours</p>
                                     <p class="card-text"><strong>Phone Number:</strong> @salon.PhoneNumber</p>
+
+                                    <!-- View Employees Button -->
+                                    <a href="@Url.Action("GetEmployeesBySalon", "Employee", new { salonId = salon.SalonId })" class="btn view-employees-btn">
+                                        View Employees
+                                    </a>
+
+
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WebProgramlamaProje.Models.Employee>
+
+<style>
+    /* Section Title */
+    .section-title {
+        color: #e8b44b;
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px;
+        background: linear-gradient(90deg, black, #3a3a3a);
+        margin-bottom: 30px;
+        margin-top: 50px;
+        text-align: center;
+        font-family: cursive;
+        font-size: 2rem;
+    }
+
+    /* Employee Card */
+    .employee-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        position: relative;
+        margin-bottom: 20px;
+        font-family: cursive;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .employee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+    /* Employee Name */
+    .employee-name {
+        font-size: 1.8rem;
+        color: #e8b44b; /* Yellow color */
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    /* Employee Working Hours */
+    .employee-working-hours {
+        color: #000; /* Black color */
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+
+    /* Services Section */
+    .employee-services {
+        color: #000; /* Black color for services */
+    }
+
+    /* Service Items */
+    .service-item {
+        margin-bottom: 10px;
+    }
+
+    .no-services {
+        font-style: italic;
+        color: #999;
+    }
+
+    /* No Employees Found */
+    .no-employees {
+        text-align: center;
+        color: #999;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+</style>
+
+<h2 class="section-title">Employees</h2>
+
+<div class="container">
+    <div class="row">
+        @if (Model == null || !Model.Any())
+        {
+            <p class="no-employees">No employees found.</p>
+        }
+        else
+        {
+            @foreach (var employee in Model)
+            {
+                <div class="col-md-4 col-lg-3">
+                    <div class="employee-card">
+                        <!-- Employee Name and Working Hours -->
+                        <div class="employee-name">@employee.Name @employee.Surname</div>
+                        <div class="employee-working-hours"><strong>Working Hours:</strong> @employee.WorkingHours</div>
+
+                        <!-- Services Section -->
+                        <div class="employee-services">
+                            <strong>Services:</strong>
+                            @if (employee.Services != null && employee.Services.Any())
+                            {
+                                <ul>
+                                    @foreach (var service in employee.Services)
+                                    {
+                                        <li class="service-item">@service.Name</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p class="no-services">No services available</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebProgramlamaProje.Models;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebProgramlamaProje.Controllers
 {
@@ -147,6 +148,5 @@ namespace WebProgramlamaProje.Controllers
                 return "/images/default.png";
             }
         }
-
     }
 }
